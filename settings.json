@@ -1,39 +1,56 @@
 {
-  "runningText": ">> Selamat Datang di Sekretariat Daerah Kabupaten Tapin. Mohon menjaga ketertiban dan kebersihan. Pelayanan Bagian Umum akan tutup pukul 15:00 WIB. >>",
+  "runningText": ">> Selamat Datang di Sekretariat Daerah Kabupaten Tapin. Mohon menjaga ketertiban dan kebersihan. >>",
   "news": [
     {
-      "title": "Pemkab Tapin Raih WTP ke-5 Kalinya",
-      "time": "2 jam lalu"
+      "title": "AA",
+      "time": "3424324"
     },
     {
-      "title": "Sekda Buka Musrenbang RKPD 2024",
-      "time": "5 jam lalu"
+      "title": "Mengukuhkan Anggota Badan Wakaf Indonesia Kabupaten Tapin",
+      "time": "4jam lalu"
     },
     {
-      "title": "Bupati Luncurkan Program Digitalisasi Pasar",
-      "time": "1 hari lalu"
+      "title": "Rapat Koordinasi Pemkab Tapin Menyambut Giat 5 Rajab",
+      "time": "12 Jam lalu"
+    },
+    {
+      "title": "Lomba Masak Memeriahkan Peringatan Hari Ibu Di Kabupaten Tapin",
+      "time": "22 Jam lalu"
+    },
+    {
+      "title": "Bupati dan Wakil Bupati Tapin Resmikan Bank Kalsel Syariah Tapin",
+      "time": "22 Jam lalu"
+    },
+    {
+      "title": "Berbagai Lomba Meriahkan HUT DWP Ke 26 Di Kabupaten Tapin",
+      "time": "2 Hari yang Lalu"
     }
   ],
   "agenda": [
     {
-      "time": "09:00",
-      "title": "Rapat Koordinasi Forkopimda",
-      "location": "Ruang Rapat Sekda"
+      "time": "09.00",
+      "title": "Pengukuhan badan wakaf Indonesia   (Asmintum)",
+      "location": "aula tamasa"
     },
     {
-      "time": "10:30",
-      "title": "Menerima Audiensi dari IKAPTK",
-      "location": "Ruang Tamu Utama"
+      "time": "09.00",
+      "title": "Wisuda santri XXXVI",
+      "location": "pendopo galuh bastari"
     },
     {
-      "time": "14:00",
-      "title": "Menerima Audiensi PT. Nusantara Jaya",
-      "location": "Ruang Tamu Utama"
+      "time": "09.00",
+      "title": "Penyerahan LHP DTT & Kinerja Semester II tahun 2025",
+      "location": "Kantor BPK KALSEL"
     },
     {
-      "time": "16:00",
-      "title": "Review Kinerja Triwulan II",
-      "location": "Ruang Rapat Bupati"
+      "time": "09.00 - Selasa 23.12.2025",
+      "title": "Penyerahan LHP DTT & Kinerja Semester II tahun 2025",
+      "location": "Kantor BPK KALSEL"
+    },
+    {
+      "time": "09.00 Rabu 24/12/2025",
+      "title": "Perpisahan mahasiswa KKN",
+      "location": "Aula desa miawa"
     }
   ],
   "services": [
