@@ -24,6 +24,17 @@
     </style>
 </head>
 <body class="font-sans text-white">
+    <!-- ======================================================= -->
+    <!-- ========= TAMBAHAN UNTUK FULLSCREEN OTOMATIS ======== -->
+    <!-- ======================================================= -->
+    <!-- Tombol Fallback, disembunyikan secara default -->
+    <button id="fullscreen-btn" onclick="enterFullscreen()" style="display: none;" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-yellow-400 hover:bg-yellow-300 text-black font-bold py-4 px-8 rounded-lg shadow-2xl text-2xl">
+        Klik untuk Tampilan Penuh
+    </button>
+    <!-- ======================================================= -->
+    <!-- ========= AKHIR TAMBAHAN ============================== -->
+    <!-- ======================================================= -->
+
     <!-- CONTAINER UTAMA: Mengisi seluruh layar, tidak bisa di-scroll -->
     <div class="flex flex-col h-screen overflow-hidden">
         
@@ -102,7 +113,7 @@
         <footer class="bg-green-900 p-2 flex justify-between items-center text-xs flex-shrink-0">
             <div class="flex flex-col items-start">
                 <div class="text-3xl font-bold text-yellow-400" id="clock"></div>
-                <p class="text-xs text-gray-300" id="date"></p> <!-- ID untuk tanggal -->
+                <p class="text-xs text-gray-300" id="date"></p>
             </div>
             <div class="flex-1 mx-4 overflow-hidden">
                 <div class="running-text whitespace-nowrap">
@@ -110,24 +121,55 @@
                 </div>
             </div>
             <div class="text-gray-400">
-                <span id="year"></span> Pemerintah Kabupaten Tapin <!-- ID untuk tahun -->
+                <span id="year"></span> Pemerintah Kabupaten Tapin
             </div>
         </footer>
     </div>
 
     <script>
+        // =======================================================
+        // ========= TAMBAHAN FUNGSI FULLSCREEN =================
+        // =======================================================
+        function enterFullscreen() {
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+        }
+
+        // Coba masuk fullscreen otomatis saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tunggu sedikit agar browser siap
+            setTimeout(() => {
+                const promise = document.documentElement.requestFullscreen();
+                
+                // Jika promise di-reject (biasanya karena tidak ada user gesture)
+                promise.catch(() => {
+                    console.log("Fullscreen otomatis diblokir browser. Menampilkan tombol fallback.");
+                    // Tampilkan tombol untuk diklik pengguna
+                    const button = document.getElementById('fullscreen-btn');
+                    if (button) {
+                        button.style.display = 'block';
+                    }
+                });
+            }, 500); // Delay 500ms
+        });
+        // =======================================================
+        // ========= AKHIR FUNGSI FULLSCREEN ====================
+        // =======================================================
+
         // FUNGSI UTAMA
         function updateClock() {
             const now = new Date();
-            
-            // Update Jam
             document.getElementById('clock').textContent = now.toLocaleString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
             
-            // Update Tanggal
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             document.getElementById('date').textContent = now.toLocaleDateString('id-ID', options);
 
-            // Update Tahun
             document.getElementById('year').textContent = now.getFullYear();
         }
         setInterval(updateClock, 1000);
@@ -180,7 +222,6 @@
             }
             placeholder.innerHTML = contentHtml;
 
-            // Muat ulang script TikTok jika perlu
             if (item.type === 'tiktok' && window.tiktokEmbed) {
                 window.tiktokEmbed();
             }
