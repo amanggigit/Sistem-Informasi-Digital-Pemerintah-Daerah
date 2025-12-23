@@ -29,7 +29,7 @@
         
         <!-- HEADER: Tinggi tetap, tidak akan menyusut -->
         <header class="bg-green-900 p-3 flex justify-between items-center shadow-lg flex-shrink-0">
-            <img src="{{ asset('images/logo-tapin.png') }}" alt="Logo Tapin" class="h-12">
+            <img src="images/logo-tapin.png" alt="Logo Tapin" class="h-12">
             <div class="text-center">
                 <h1 class="text-2xl font-bold text-yellow-400">SIDA TAPIN</h1>
                 <p class="text-xs text-gray-300">Sistem Informasi Digital Pemerintah Daerah</p>
@@ -37,7 +37,7 @@
             <div class="flex items-center space-x-3">
                 <img src="https://picsum.photos/seed/garuda-pancasila/100/100.jpg" alt="Logo RI" class="h-10 object-contain">
                 <img src="https://picsum.photos/seed/logo-kalsel/100/100.jpg" alt="Logo Kalsel" class="h-10 object-contain">
-                <img src="{{ asset('images/logo-tapin.png') }}" alt="Logo Tapin" class="h-10 object-contain">
+                <img src="images/logo-tapin.png" alt="Logo Tapin" class="h-10 object-contain">
             </div>
         </header>
 
@@ -102,14 +102,16 @@
         <footer class="bg-green-900 p-2 flex justify-between items-center text-xs flex-shrink-0">
             <div class="flex flex-col items-start">
                 <div class="text-3xl font-bold text-yellow-400" id="clock"></div>
-                <p class="text-xs text-gray-300">{{ now()->format('l, j F Y') }}</p>
+                <p class="text-xs text-gray-300" id="date"></p> <!-- ID untuk tanggal -->
             </div>
             <div class="flex-1 mx-4 overflow-hidden">
                 <div class="running-text whitespace-nowrap">
                     <span class="text-yellow-300 text-4xl">>> Selamat Datang di Sekretariat Daerah Kabupaten Tapin. Mohon menjaga ketertiban dan kebersihan. >> </span>
                 </div>
             </div>
-            <div class="text-gray-400">&copy; {{ date('Y') }} Pemerintah Kabupaten Tapin</div>
+            <div class="text-gray-400">
+                <span id="year"></span> Pemerintah Kabupaten Tapin <!-- ID untuk tahun -->
+            </div>
         </footer>
     </div>
 
@@ -117,21 +119,30 @@
         // FUNGSI UTAMA
         function updateClock() {
             const now = new Date();
+            
+            // Update Jam
             document.getElementById('clock').textContent = now.toLocaleString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            
+            // Update Tanggal
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('date').textContent = now.toLocaleDateString('id-ID', options);
+
+            // Update Tahun
+            document.getElementById('year').textContent = now.getFullYear();
         }
         setInterval(updateClock, 1000);
         updateClock();
 
         const playlist = [
             { type: 'image', src: 'https://picsum.photos/seed/tapin-galeri1/1200/800.jpg', duration: 10000 },
-            { type: 'video', src: '{{ asset("videos/profile-tapin.mp4") }}', duration: 60000 },
+            { type: 'video', src: 'videos/profile-tapin.mp4', duration: 60000 },
             { 
                 type: 'tiktok', 
                 videoId: '7585738238728424725',
                 username: 'h_yamani_official',
                 duration: 30000 
             },
-            { type: 'social', bagian: 'Bagian Pemerintahan', qr: '{{ asset("images/qr-bagpem.png") }}', duration: 15000 },
+            { type: 'social', bagian: 'Bagian Pemerintahan', qr: 'images/qr-bagpem.png', duration: 15000 },
         ];
 
         const newsData = [ { title: 'Pemkab Tapin Raih WTP ke-5 Kalinya', time: '2 jam lalu' }, { title: 'Sekda Buka Musrenbang RKPD 2024', time: '5 jam lalu' } ];
