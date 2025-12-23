@@ -17,9 +17,6 @@
         .running-text { animation: scroll-left 30s linear infinite; }
         @keyframes scroll-left { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        /* ======================================================= */
-        /* ========= PERUBAHAN CSS UNTUK BERITA & AGENDA ======== */
-        /* ======================================================= */
         /* AGENDA SCROLL (VERTIKAL) */
         .agenda-scroll-wrapper { height: 224px; overflow: hidden; }
         .agenda-scroll-content { animation: scroll-up 25s linear infinite; }
@@ -32,14 +29,13 @@
         .news-scroll-content {
             display: flex; /* Susun item secara horizontal */
             animation: scroll-horizontal 30s linear infinite; /* Terapkan animasi */
+            gap: 1rem; /* Jarak antar item berita */
+            padding-bottom: 1rem; /* Beri jarak di bawah untuk scrollbar */
         }
         @keyframes scroll-horizontal {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); } /* Geser setengah jalan */
         }
-        /* ======================================================= */
-        /* ========= AKHIR PERUBAHAN CSS ======================== */
-        /* ======================================================= */
     </style>
 </head>
 <body class="font-sans text-white">
@@ -50,13 +46,21 @@
 
     <!-- CONTAINER UTAMA -->
     <div class="flex flex-col h-screen overflow-hidden">
-        <!-- HEADER -->
-        <header class="bg-green-900 p-3 flex justify-between items-center shadow-lg flex-shrink-0">
+        <!-- HEADER (Tinggi ditambah 50%) -->
+        <header class="bg-green-900 p-5 flex justify-between items-center shadow-lg flex-shrink-0">
             <img src="images/logo-tapin.png" alt="Logo Tapin" class="h-12">
+            
+            <!-- ======================================================= -->
+            <!-- ========= PERUBAHAN TEKS HEADER ================= -->
+            <!-- ======================================================= -->
             <div class="text-center">
-                <h1 class="text-2xl font-bold text-yellow-400">SIDA TAPIN</h1>
-                <p class="text-xs text-gray-300">Sistem Informasi Digital Pemerintah Daerah</p>
+                <h1 class="text-2xl font-bold text-yellow-400">PEMERINTAH KABUPATEN TAPIN</h1>
+                <p class="text-xs text-gray-300">Sekretariat Daerah</p>
             </div>
+            <!-- ======================================================= -->
+            <!-- ========= AKHIR PERUBAHAN ========================== -->
+            <!-- ======================================================= -->
+
             <div class="flex items-center space-x-3">
                 <img src="https://picsum.photos/seed/garuda-pancasila/100/100.jpg" alt="Logo RI" class="h-10 object-contain">
                 <img src="https://picsum.photos/seed/logo-kalsel/100/100.jpg" alt="Logo Kalsel" class="h-10 object-contain">
@@ -90,9 +94,6 @@
                     <p class="text-center text-xs text-gray-300">Kabupaten Tapin</p>
                 </div>
 
-                <!-- ======================================================= */
-                /* ========= PERUBAHAN STRUKTUR HTML BERITA ======== */
-                /* ======================================================= */
                 <!-- Berita -->
                 <h2 class="text-xl font-bold mb-4 text-yellow-400">Berita Terkini</h2>
                 <div class="news-scroll-wrapper">
@@ -100,9 +101,6 @@
                         <!-- Berita akan dimuat dan diduplikasi oleh JavaScript -->
                     </div>
                 </div>
-                /* ======================================================= */
-                /* ========= AKHIR PERUBAHAN STRUKTUR ============== */
-                /* ======================================================= */
                 
                 <!-- Agenda -->
                 <h2 class="text-xl font-bold mt-6 mb-4 text-yellow-400">Agenda Pimpinan</h2>
@@ -176,52 +174,7 @@
             }
         }
 
-        // ======================================================= */
-        /* ========= PERUBAHAN FUNGSI RENDER BERITA (DUPLIKASI) == */
-        /* ======================================================= */
-        // Fungsi untuk menampilkan berita dengan duplikasi untuk scroll mulus
-        function showNews(newsData) {
-            const newsList = document.getElementById('news-list');
-            const newsHtml = newsData.map(n => `
-                <div class="flex-shrink-0 w-64 p-4 bg-green-800 rounded-lg border border-green-700">
-                    <h3 class="font-bold text-sm mb-2">${n.title}</h3>
-                    <p class="text-xs text-gray-300">${n.time}</p>
-                </div>
-            `).join('');
-
-            // Duplikasi konten untuk membuat loop tak terbatas
-            newsList.innerHTML = newsHtml + newsHtml;
-        }
-        /* ======================================================= */
-        /* ========= AKHIR PERUBAHAN FUNGSI ===================== */
-        /* ======================================================= */
-        
-        // Fungsi lainnya (tidak berubah)
-        function renderMiniBanners(services) {
-            const bannerContainer = document.getElementById('mini-banners');
-            bannerContainer.innerHTML = services.map(service => `
-                <a href="${service.url}" target="_blank" class="group block overflow-hidden rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
-                    <img src="${service.image}" alt="${service.name}" class="w-full h-24 sm:h-32 object-cover">
-                    <div class="bg-green-800 p-2 text-center">
-                        <p class="text-sm font-semibold text-yellow-400 group-hover:text-white">${service.name}</p>
-                    </div>
-                </a>
-            `).join('');
-        }
-        function showAgenda(agendaData) {
-            const agendaList = document.getElementById('agenda-list');
-            const agendaHtml = agendaData.map(a => `
-                <div class="mb-3 p-3 bg-gray-800 rounded border-l-4 border-yellow-400">
-                    <p class="font-bold text-yellow-300 text-sm">${a.time} WIB</p>
-                    <h3 class="font-semibold text-white text-sm">${a.title}</h3>
-                    <p class="text-xs text-gray-400 mt-1">${a.location}</p>
-                </div>
-            `).join('');
-            agendaList.innerHTML = agendaHtml + agendaHtml;
-        }
-        function updateRunningText(text) {
-            document.getElementById('running-text-display').textContent = text;
-        }
+        // FUNGSI RENDER (MENAMPILKAN DATA)
         function showContent() {
             const item = playlist[currentPlaylistIndex];
             const placeholder = document.getElementById('content-placeholder');
@@ -257,6 +210,42 @@
                 currentPlaylistIndex = (currentPlaylistIndex + 1) % playlist.length;
                 showContent();
             }, item.duration);
+        }
+        
+        function renderMiniBanners(services) {
+            const bannerContainer = document.getElementById('mini-banners');
+            bannerContainer.innerHTML = services.map(service => `
+                <a href="${service.url}" target="_blank" class="group block overflow-hidden rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                    <img src="${service.image}" alt="${service.name}" class="w-full h-24 sm:h-32 object-cover">
+                    <div class="bg-green-800 p-2 text-center">
+                        <p class="text-sm font-semibold text-yellow-400 group-hover:text-white">${service.name}</p>
+                    </div>
+                </a>
+            `).join('');
+        }
+        function showNews(newsData) {
+            const newsList = document.getElementById('news-list');
+            const newsHtml = newsData.map(n => `
+                <div class="flex-shrink-0 w-64 p-4 bg-green-800 rounded-lg border border-green-700">
+                    <h3 class="font-bold text-sm mb-2">${n.title}</h3>
+                    <p class="text-xs text-gray-300">${n.time}</p>
+                </div>
+            `).join('');
+            newsList.innerHTML = newsHtml + newsHtml;
+        }
+        function showAgenda(agendaData) {
+            const agendaList = document.getElementById('agenda-list');
+            const agendaHtml = agendaData.map(a => `
+                <div class="mb-3 p-3 bg-gray-800 rounded border-l-4 border-yellow-400">
+                    <p class="font-bold text-yellow-300 text-sm">${a.time} WIB</p>
+                    <h3 class="font-semibold text-white text-sm">${a.title}</h3>
+                    <p class="text-xs text-gray-400 mt-1">${a.location}</p>
+                </div>
+            `).join('');
+            agendaList.innerHTML = agendaHtml + agendaHtml;
+        }
+        function updateRunningText(text) {
+            document.getElementById('running-text-display').textContent = text;
         }
         function updateClock() {
             const now = new Date();
