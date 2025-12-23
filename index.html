@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Informasi Pemkab Tapin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* RESET & UTAMA */
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            overflow: hidden; /* CEGAH SCROLL HALAMAN */
+            background-color: #1a4d2e; 
+            font-family: 'system-ui', sans-serif;
+        }
+        .running-text { animation: scroll-left 30s linear infinite; }
+        @keyframes scroll-left { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        /* AGENDA SCROLL */
+        .agenda-scroll-wrapper { height: 224px; overflow: hidden; }
+        .agenda-scroll-content { animation: scroll-up 25s linear infinite; }
+        @keyframes scroll-up { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
+    </style>
+</head>
+<body class="font-sans text-white">
+    <!-- CONTAINER UTAMA: Mengisi seluruh layar, tidak bisa di-scroll -->
+    <div class="flex flex-col h-screen overflow-hidden">
+        
+        <!-- HEADER: Tinggi tetap, tidak akan menyusut -->
+        <header class="bg-green-900 p-3 flex justify-between items-center shadow-lg flex-shrink-0">
+            <img src="{{ asset('images/logo-tapin.png') }}" alt="Logo Tapin" class="h-12">
+            <div class="text-center">
+                <h1 class="text-2xl font-bold text-yellow-400">SIDA TAPIN</h1>
+                <p class="text-xs text-gray-300">Sistem Informasi Digital Pemerintah Daerah</p>
+            </div>
+            <div class="flex items-center space-x-3">
+                <img src="https://picsum.photos/seed/garuda-pancasila/100/100.jpg" alt="Logo RI" class="h-10 object-contain">
+                <img src="https://picsum.photos/seed/logo-kalsel/100/100.jpg" alt="Logo Kalsel" class="h-10 object-contain">
+                <img src="{{ asset('images/logo-tapin.png') }}" alt="Logo Tapin" class="h-10 object-contain">
+            </div>
+        </header>
+
+        <!-- AREA KONTEN UTAMA: Akan mengisi sisa ruang yang tersedia -->
+        <div class="flex flex-1 overflow-hidden">
+            
+            <!-- ZONA A: Kolom Kiri (75% lebar) -->
+            <main class="w-3/4 p-4 flex flex-col">
+                <!-- AREA KONTEN DINAMIS: Fleksibel, mengisi sisa ruang -->
+                <div id="dynamic-content" class="flex-1 bg-black bg-opacity-20 rounded-lg mb-4 p-4 flex items-center justify-center overflow-hidden">
+                    <div id="content-placeholder" class="max-w-full max-h-full">
+                        <!-- Konten (gambar/video) akan dimuat di sini oleh JS -->
+                        <p class="text-2xl">Memuat konten...</p>
+                    </div>
+                </div>
+
+                <!-- AREA MINI BANNER: Tinggi tetap, tidak akan menyusut -->
+                <div class="grid grid-cols-3 gap-4 flex-shrink-0">
+                    <a href="https://layanan.tapinkab.go.id" target="_blank" class="group block overflow-hidden rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                        <img src="https://picsum.photos/seed/layanan-publik-tapin/400/200.jpg" alt="Layanan Publik" class="w-full h-24 sm:h-32 object-cover">
+                        <div class="bg-green-800 p-2 text-center">
+                            <p class="text-sm font-semibold text-yellow-400 group-hover:text-white">Layanan Publik</p>
+                        </div>
+                    </a>
+                    <a href="https://e-planning.tapinkab.go.id" target="_blank" class="group block overflow-hidden rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                        <img src="https://picsum.photos/seed/e-planning-tapin/400/200.jpg" alt="E-Planning" class="w-full h-24 sm:h-32 object-cover">
+                        <div class="bg-green-800 p-2 text-center">
+                            <p class="text-sm font-semibold text-yellow-400 group-hover:text-white">E-Planning</p>
+                        </div>
+                    </a>
+                    <a href="https://pengaduan.tapinkab.go.id" target="_blank" class="group block overflow-hidden rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                        <img src="https://picsum.photos/seed/pengaduan-masyarakat-tapin/400/200.jpg" alt="Pengaduan" class="w-full h-24 sm:h-32 object-cover">
+                        <div class="bg-green-800 p-2 text-center">
+                            <p class="text-sm font-semibold text-yellow-400 group-hover:text-white">Pengaduan</p>
+                        </div>
+                    </a>
+                </div>
+            </main>
+
+            <!-- ZONA B: Kolom Kanan (25% lebar) -->
+            <aside class="w-1/4 bg-black bg-opacity-50 p-4 overflow-y-auto">
+                <!-- Banner Pimpinan -->
+                <div class="mb-6 p-3 bg-green-800 rounded-lg border border-yellow-400">
+                    <img src="https://picsum.photos/seed/bupati-wakil-tapin/400/250.jpg" alt="Bupati dan Wakil Bupati Tapin" class="w-full h-40 object-cover rounded mb-2">
+                    <h3 class="text-center text-sm font-bold text-yellow-400">Pimpinan Daerah</h3>
+                    <p class="text-center text-xs text-gray-300">Kabupaten Tapin</p>
+                </div>
+
+                <!-- Berita -->
+                <h2 class="text-xl font-bold mb-4 text-yellow-400">Berita Terkini</h2>
+                <div id="news-list"></div>
+                
+                <!-- Agenda -->
+                <h2 class="text-xl font-bold mt-6 mb-4 text-yellow-400">Agenda Pimpinan</h2>
+                <div class="agenda-scroll-wrapper">
+                    <div id="agenda-list" class="agenda-scroll-content"></div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- FOOTER: Tinggi tetap, tidak akan menyusut -->
+        <footer class="bg-green-900 p-2 flex justify-between items-center text-xs flex-shrink-0">
+            <div class="flex flex-col items-start">
+                <div class="text-3xl font-bold text-yellow-400" id="clock"></div>
+                <p class="text-xs text-gray-300">{{ now()->format('l, j F Y') }}</p>
+            </div>
+            <div class="flex-1 mx-4 overflow-hidden">
+                <div class="running-text whitespace-nowrap">
+                    <span class="text-yellow-300 text-4xl">>> Selamat Datang di Sekretariat Daerah Kabupaten Tapin. Mohon menjaga ketertiban dan kebersihan. >> </span>
+                </div>
+            </div>
+            <div class="text-gray-400">&copy; {{ date('Y') }} Pemerintah Kabupaten Tapin</div>
+        </footer>
+    </div>
+
+    <script>
+        // FUNGSI UTAMA
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').textContent = now.toLocaleString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        const playlist = [
+            { type: 'image', src: 'https://picsum.photos/seed/tapin-galeri1/1200/800.jpg', duration: 10000 },
+            { type: 'video', src: '{{ asset("videos/profile-tapin.mp4") }}', duration: 60000 },
+            { 
+                type: 'tiktok', 
+                videoId: '7585738238728424725',
+                username: 'h_yamani_official',
+                duration: 30000 
+            },
+            { type: 'social', bagian: 'Bagian Pemerintahan', qr: '{{ asset("images/qr-bagpem.png") }}', duration: 15000 },
+        ];
+
+        const newsData = [ { title: 'Pemkab Tapin Raih WTP ke-5 Kalinya', time: '2 jam lalu' }, { title: 'Sekda Buka Musrenbang RKPD 2024', time: '5 jam lalu' } ];
+        const agendaData = [ { time: '09:00', title: 'Rapat Koordinasi Forkopimda', location: 'Ruang Rapat Sekda' }, { time: '10:30', title: 'Menerima Audiensi dari IKAPTK', location: 'Ruang Tamu Utama' }, { time: '14:00', title: 'Menerima Audiensi PT. Nusantara Jaya', location: 'Ruang Tamu Utama' }, { time: '16:00', title: 'Review Kinerja Triwulan II', location: 'Ruang Rapat Bupati' } ];
+
+        let currentPlaylistIndex = 0;
+
+        function showContent() {
+            const item = playlist[currentPlaylistIndex];
+            const placeholder = document.getElementById('content-placeholder');
+            placeholder.innerHTML = ''; // Kosongkan dulu
+
+            let contentHtml = '';
+            if (item.type === 'image') {
+                contentHtml = `<img src="${item.src}" class="max-w-full max-h-full object-contain">`;
+            } else if (item.type === 'video') {
+                contentHtml = `<video src="${item.src}" autoplay muted loop class="max-w-full max-h-full object-contain"></video>`;
+            } else if (item.type === 'social') {
+                contentHtml = `
+                    <div class="text-center p-4">
+                        <h2 class="text-4xl font-bold mb-4">${item.bagian}</h2>
+                        <p class="text-xl mb-6">Ikuti kami di media sosial</p>
+                        <img src="${item.qr}" alt="QR Code" class="w-64 h-64 mx-auto border-4 border-yellow-400 p-2 bg-white">
+                        <p class="text-lg mt-4">Scan untuk menuju Instagram</p>
+                    </div>`;
+            } else if (item.type === 'tiktok') {
+                contentHtml = `
+                    <div class="w-full h-full flex items-center justify-center p-4">
+                        <div style="width: 100%; max-width: 485px; height: 100%; max-height: 85vh; position: relative;">
+                            <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@${item.username}/video/${item.videoId}" data-video-id="${item.videoId}" style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
+                                <section> <a target="_blank" title="@${item.username}" href="https://www.tiktok.com/@${item.username}">@${item.username}</a> </section>
+                            </blockquote>
+                        </div>
+                    </div>`;
+            }
+            placeholder.innerHTML = contentHtml;
+
+            // Muat ulang script TikTok jika perlu
+            if (item.type === 'tiktok' && window.tiktokEmbed) {
+                window.tiktokEmbed();
+            }
+
+            setTimeout(() => {
+                currentPlaylistIndex = (currentPlaylistIndex + 1) % playlist.length;
+                showContent();
+            }, item.duration);
+        }
+        
+        function showNews() {
+            const newsList = document.getElementById('news-list');
+            newsList.innerHTML = newsData.map(n => `
+                <div class="mb-4 p-3 bg-green-800 rounded">
+                    <h3 class="font-bold text-sm">${n.title}</h3>
+                    <p class="text-xs text-gray-300">${n.time}</p>
+                </div>
+            `).join('');
+        }
+
+        function showAgenda() {
+            const agendaList = document.getElementById('agenda-list');
+            const agendaHtml = agendaData.map(a => `
+                <div class="mb-3 p-3 bg-gray-800 rounded border-l-4 border-yellow-400">
+                    <p class="font-bold text-yellow-300 text-sm">${a.time} WIB</p>
+                    <h3 class="font-semibold text-white text-sm">${a.title}</h3>
+                    <p class="text-xs text-gray-400 mt-1">${a.location}</p>
+                </div>
+            `).join('');
+            agendaList.innerHTML = agendaHtml + agendaHtml;
+        }
+
+        // JALANKAN SEMUA
+        showContent();
+        showNews();
+        showAgenda();
+        setTimeout(() => location.reload(), 600000);
+    </script>
+    <script async src="https://www.tiktok.com/embed.js"></script>
+</body>
+</html>
