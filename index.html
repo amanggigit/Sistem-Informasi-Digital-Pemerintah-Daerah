@@ -103,7 +103,7 @@
     </div>
 
     <script>
-        // =======================================================
+               // =======================================================
         // ========= FUNGSI FULLSCREEN ========================
         // =======================================================
         function enterFullscreen() {
@@ -115,18 +115,40 @@
             } else if (elem.msRequestFullscreen) { /* IE11 */
                 elem.msRequestFullscreen();
             }
+
+            // Sembunyikan tombol setelah diklik
+            const button = document.getElementById('fullscreen-btn');
+            if (button) {
+                button.style.display = 'none';
+            }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            // Tunggu sedikit agar browser siap
             setTimeout(() => {
                 const promise = document.documentElement.requestFullscreen();
+                
+                // Jika promise di-reject (biasanya karena tidak ada user gesture)
                 promise.catch(() => {
                     console.log("Fullscreen otomatis diblokir browser. Menampilkan tombol fallback.");
+                    // Tampilkan tombol untuk diklik pengguna
                     const button = document.getElementById('fullscreen-btn');
                     if (button) button.style.display = 'block';
                 });
-            }, 500);
+            }, 500); // Delay 500ms
         });
+        // =======================================================
+        // ========= AKHIR FUNGSI FULLSCREEN ====================
+        // =======================================================
+
+        // =======================================================
+        // ========= VARIABEL GLOBAL UNTUK PLAYLIST =============
+        // =======================================================
+        let playlist = []; // Playlist akan diisi dari settings.json
+        let currentPlaylistIndex = 0;
+        // =======================================================
+        // ========= AKHIR VARIABEL GLOBAL =====================
+        // =======================================================
 
         // =======================================================
         // ========= FUNGSI UTAMA (MEMUAT DATA) ===============
@@ -139,22 +161,72 @@
                 }
                 const settings = await response.json();
 
+                // ISI VARIABEL GLOBAL PLAYLIST
+                playlist = settings.playlist;
+
                 // Panggil fungsi render dengan data dari JSON
                 renderMiniBanners(settings.services);
                 showNews(settings.news);
                 showAgenda(settings.agenda);
                 updateRunningText(settings.runningText);
 
+                // MULAI TAMPILKAN KONTEN UTAMA
+                showContent();
+
             } catch (error) {
                 console.error("Gagal memuat settings.json:", error);
-                // Tampilkan pesan error di konsol dan bisa juga di UI
                 document.getElementById('content-placeholder').innerHTML = '<p class="text-red-500">Gagal memuat konten. Periksa koneksi dan file settings.json.</p>';
             }
         }
+        // =======================================================
+        // ========= AKHIR FUNGSI UTAMA ========================
+        // =======================================================
 
         // =======================================================
         // ========= FUNGSI RENDER (MENAMPILKAN DATA) =========
         // =======================================================
+        
+        // Fungsi untuk menampilkan konten utama (sudah disesuaikan)
+        function showContent() {
+            const item = playlist[currentPlaylistIndex];
+            const placeholder = document.getElementById('content-placeholder');
+            placeholder.innerHTML = ''; // Kosongkan dulu
+
+            let contentHtml = '';
+            if (item.type === 'image') {
+                contentHtml = `<img src="${item.src}" class="max-w-full max-h-full object-contain">`;
+            } else if (item.type === 'video') {
+                contentHtml = `<video src="${item.src}" autoplay muted loop class="max-w-full max-h-full object-contain"></video>`;
+            } else if (item.type === 'social') {
+                contentHtml = `
+                    <div class="text-center p-4">
+                        <h2 class="text-4xl font-bold mb-4">${item.bagian}</h2>
+                        <p class="text-xl mb-6">Ikuti kami di media sosial</p>
+                        <img src="${item.qr}" alt="QR Code" class="w-64 h-64 mx-auto border-4 border-yellow-400 p-2 bg-white">
+                        <p class="text-lg mt-4">Scan untuk menuju Instagram</p>
+                    </div>`;
+            } else if (item.type === 'tiktok') {
+                contentHtml = `
+                    <div class="w-full h-full flex items-center justify-center p-4">
+                        <div style="width: 100%; max-width: 485px; height: 100%; max-height: 85vh; position: relative;">
+                            <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@${item.username}/video/${item.videoId}" data-video-id="${item.videoId}" style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
+                                <section> <a target="_blank" title="@${item.username}" href="https://www.tiktok.com/@${item.username}">@${item.username}</a> </section>
+                            </blockquote>
+                        </div>
+                    </div>`;
+            }
+            placeholder.innerHTML = contentHtml;
+
+            // Muat ulang script TikTok jika perlu
+            if (item.type === 'tiktok' && window.tiktokEmbed) {
+                window.tiktokEmbed();
+            }
+
+            setTimeout(() => {
+                currentPlaylistIndex = (currentPlaylistIndex + 1) % playlist.length;
+                showContent();
+            }, item.duration);
+        }
         
         // Fungsi untuk menampilkan mini banner
         function renderMiniBanners(services) {
@@ -197,9 +269,12 @@
         function updateRunningText(text) {
             document.getElementById('running-text-display').textContent = text;
         }
+        // =======================================================
+        // ========= AKHIR FUNGSI RENDER ========================
+        // =======================================================
 
         // =======================================================
-        // ========= FUNGSI LAINNYA (JAM & PLAYLIST) ==========
+        // ========= FUNGSI LAINNYA (JAM) =======================
         // =======================================================
         function updateClock() {
             const now = new Date();
@@ -211,62 +286,23 @@
             document.getElementById('year').textContent = now.getFullYear();
         }
         setInterval(updateClock, 1000);
-
-        const playlist = [
-            { type: 'image', src: 'https://picsum.photos/seed/tapin-galeri1/1200/800.jpg', duration: 10000 },
-            { type: 'video', src: 'videos/profile-tapin.mp4', duration: 60000 },
-            { 
-                type: 'tiktok', 
-                videoId: '7585738238728424725',
-                username: 'h_yamani_official',
-                duration: 30000 
-            },
-            { type: 'social', bagian: 'Bagian Pemerintahan', qr: 'images/qr-bagpem.png', duration: 15000 },
-        ];
-
-        let currentPlaylistIndex = 0;
-        function showContent() {
-            const item = playlist[currentPlaylistIndex];
-            const placeholder = document.getElementById('content-placeholder');
-            placeholder.innerHTML = '';
-
-            let contentHtml = '';
-            if (item.type === 'image') {
-                contentHtml = `<img src="${item.src}" class="max-w-full max-h-full object-contain">`;
-            } else if (item.type === 'video') {
-                contentHtml = `<video src="${item.src}" autoplay muted loop class="max-w-full max-h-full object-contain"></video>`;
-            } else if (item.type === 'social') {
-                contentHtml = `
-                    <div class="text-center p-4">
-                        <h2 class="text-4xl font-bold mb-4">${item.bagian}</h2>
-                        <p class="text-xl mb-6">Ikuti kami di media sosial</p>
-                        <img src="${item.qr}" alt="QR Code" class="w-64 h-64 mx-auto border-4 border-yellow-400 p-2 bg-white">
-                        <p class="text-lg mt-4">Scan untuk menuju Instagram</p>
-                    </div>`;
-            } else if (item.type === 'tiktok') {
-                contentHtml = `
-                    <div class="w-full h-full flex items-center justify-center p-4">
-                        <div style="width: 100%; max-width: 485px; height: 100%; max-height: 85vh; position: relative;">
-                            <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@${item.username}/video/${item.videoId}" data-video-id="${item.videoId}" style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
-                                <section> <a target="_blank" title="@${item.username}" href="https://www.tiktok.com/@${item.username}">@${item.username}</a> </section>
-                            </blockquote>
-                        </div>
-                    </div>`;
-            }
-            placeholder.innerHTML = contentHtml;
-
-            if (item.type === 'tiktok' && window.tiktokEmbed) {
-                window.tiktokEmbed();
-            }
-
-            setTimeout(() => {
-                currentPlaylistIndex = (currentPlaylistIndex + 1) % playlist.length;
-                showContent();
-            }, item.duration);
-        }
+        // =======================================================
+        // ========= AKHIR FUNGSI LAINNYA =====================
+        // =======================================================
 
         // =======================================================
         // ========= JALANKAN SEMUA ============================
+        // =======================================================
+        // Jalankan semua fungsi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            updateClock();
+            loadSettings(); // Mulai dengan memuat SEMUA settings
+            // showContent() sudah dipanggil dari dalam loadSettings()
+            // Reload halaman setiap 10 menit untuk mendapat data terbaru
+            setTimeout(() => location.reload(), 600000);
+        });
+        // =======================================================
+        // ========= AKHIR EKSEKUSI ==============================
         // =======================================================
         // Jalankan semua fungsi saat halaman dimuat
         document.addEventListener('DOMContentLoaded', () => {
@@ -281,3 +317,4 @@
     <script async src="https://www.tiktok.com/embed.js"></script>
 </body>
 </html>
+
