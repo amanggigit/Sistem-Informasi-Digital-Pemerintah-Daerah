@@ -24,21 +24,14 @@
     </style>
 </head>
 <body class="font-sans text-white">
-    <!-- ======================================================= -->
-    <!-- ========= TAMBAHAN UNTUK FULLSCREEN OTOMATIS ======== -->
-    <!-- ======================================================= -->
-    <!-- Tombol Fallback, disembunyikan secara default -->
+    <!-- Tombol Fallback Fullscreen -->
     <button id="fullscreen-btn" onclick="enterFullscreen()" style="display: none;" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-yellow-400 hover:bg-yellow-300 text-black font-bold py-4 px-8 rounded-lg shadow-2xl text-2xl">
         Klik untuk Tampilan Penuh
     </button>
-    <!-- ======================================================= -->
-    <!-- ========= AKHIR TAMBAHAN ============================== -->
-    <!-- ======================================================= -->
 
-    <!-- CONTAINER UTAMA: Mengisi seluruh layar, tidak bisa di-scroll -->
+    <!-- CONTAINER UTAMA -->
     <div class="flex flex-col h-screen overflow-hidden">
-        
-        <!-- HEADER: Tinggi tetap, tidak akan menyusut -->
+        <!-- HEADER -->
         <header class="bg-green-900 p-3 flex justify-between items-center shadow-lg flex-shrink-0">
             <img src="images/logo-tapin.png" alt="Logo Tapin" class="h-12">
             <div class="text-center">
@@ -52,43 +45,26 @@
             </div>
         </header>
 
-        <!-- AREA KONTEN UTAMA: Akan mengisi sisa ruang yang tersedia -->
+        <!-- AREA KONTEN UTAMA -->
         <div class="flex flex-1 overflow-hidden">
-            
-            <!-- ZONA A: Kolom Kiri (75% lebar) -->
+            <!-- ZONA A: Kolom Kiri -->
             <main class="w-3/4 p-4 flex flex-col">
-                <!-- AREA KONTEN DINAMIS: Fleksibel, mengisi sisa ruang -->
+                <!-- AREA KONTEN DINAMIS -->
                 <div id="dynamic-content" class="flex-1 bg-black bg-opacity-20 rounded-lg mb-4 p-4 flex items-center justify-center overflow-hidden">
                     <div id="content-placeholder" class="max-w-full max-h-full">
-                        <!-- Konten (gambar/video) akan dimuat di sini oleh JS -->
                         <p class="text-2xl">Memuat konten...</p>
                     </div>
                 </div>
 
-                <!-- AREA MINI BANNER: Tinggi tetap, tidak akan menyusut -->
-                <div class="grid grid-cols-3 gap-4 flex-shrink-0">
-                    <a href="https://layanan.tapinkab.go.id" target="_blank" class="group block overflow-hidden rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
-                        <img src="https://picsum.photos/seed/layanan-publik-tapin/400/200.jpg" alt="Layanan Publik" class="w-full h-24 sm:h-32 object-cover">
-                        <div class="bg-green-800 p-2 text-center">
-                            <p class="text-sm font-semibold text-yellow-400 group-hover:text-white">Layanan Publik</p>
-                        </div>
-                    </a>
-                    <a href="https://e-planning.tapinkab.go.id" target="_blank" class="group block overflow-hidden rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
-                        <img src="https://picsum.photos/seed/e-planning-tapin/400/200.jpg" alt="E-Planning" class="w-full h-24 sm:h-32 object-cover">
-                        <div class="bg-green-800 p-2 text-center">
-                            <p class="text-sm font-semibold text-yellow-400 group-hover:text-white">E-Planning</p>
-                        </div>
-                    </a>
-                    <a href="https://pengaduan.tapinkab.go.id" target="_blank" class="group block overflow-hidden rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
-                        <img src="https://picsum.photos/seed/pengaduan-masyarakat-tapin/400/200.jpg" alt="Pengaduan" class="w-full h-24 sm:h-32 object-cover">
-                        <div class="bg-green-800 p-2 text-center">
-                            <p class="text-sm font-semibold text-yellow-400 group-hover:text-white">Pengaduan</p>
-                        </div>
-                    </a>
+                <!-- ======================================================= -->
+                <!-- ========= AREA MINI BANNER (DINAMIS) ========== -->
+                <!-- ======================================================= -->
+                <div id="mini-banners" class="grid grid-cols-3 gap-4 flex-shrink-0">
+                    <!-- Banner akan dimuat oleh JavaScript -->
                 </div>
             </main>
 
-            <!-- ZONA B: Kolom Kanan (25% lebar) -->
+            <!-- ZONA B: Kolom Kanan -->
             <aside class="w-1/4 bg-black bg-opacity-50 p-4 overflow-y-auto">
                 <!-- Banner Pimpinan -->
                 <div class="mb-6 p-3 bg-green-800 rounded-lg border border-yellow-400">
@@ -109,7 +85,7 @@
             </aside>
         </div>
 
-        <!-- FOOTER: Tinggi tetap, tidak akan menyusut -->
+        <!-- FOOTER -->
         <footer class="bg-green-900 p-2 flex justify-between items-center text-xs flex-shrink-0">
             <div class="flex flex-col items-start">
                 <div class="text-3xl font-bold text-yellow-400" id="clock"></div>
@@ -117,7 +93,7 @@
             </div>
             <div class="flex-1 mx-4 overflow-hidden">
                 <div class="running-text whitespace-nowrap">
-                    <span class="text-yellow-300 text-4xl">>> Selamat Datang di Sekretariat Daerah Kabupaten Tapin. Mohon menjaga ketertiban dan kebersihan. >> </span>
+                    <span class="text-yellow-300 text-4xl" id="running-text-display">Loading...</span>
                 </div>
             </div>
             <div class="text-gray-400">
@@ -128,7 +104,7 @@
 
     <script>
         // =======================================================
-        // ========= TAMBAHAN FUNGSI FULLSCREEN =================
+        // ========= FUNGSI FULLSCREEN ========================
         // =======================================================
         function enterFullscreen() {
             const elem = document.documentElement;
@@ -141,28 +117,90 @@
             }
         }
 
-        // Coba masuk fullscreen otomatis saat halaman dimuat
         document.addEventListener('DOMContentLoaded', () => {
-            // Tunggu sedikit agar browser siap
             setTimeout(() => {
                 const promise = document.documentElement.requestFullscreen();
-                
-                // Jika promise di-reject (biasanya karena tidak ada user gesture)
                 promise.catch(() => {
                     console.log("Fullscreen otomatis diblokir browser. Menampilkan tombol fallback.");
-                    // Tampilkan tombol untuk diklik pengguna
                     const button = document.getElementById('fullscreen-btn');
-                    if (button) {
-                        button.style.display = 'block';
-                    }
+                    if (button) button.style.display = 'block';
                 });
-            }, 500); // Delay 500ms
+            }, 500);
         });
-        // =======================================================
-        // ========= AKHIR FUNGSI FULLSCREEN ====================
-        // =======================================================
 
-        // FUNGSI UTAMA
+        // =======================================================
+        // ========= FUNGSI UTAMA (MEMUAT DATA) ===============
+        // =======================================================
+        async function loadSettings() {
+            try {
+                const response = await fetch('settings.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const settings = await response.json();
+
+                // Panggil fungsi render dengan data dari JSON
+                renderMiniBanners(settings.services);
+                showNews(settings.news);
+                showAgenda(settings.agenda);
+                updateRunningText(settings.runningText);
+
+            } catch (error) {
+                console.error("Gagal memuat settings.json:", error);
+                // Tampilkan pesan error di konsol dan bisa juga di UI
+                document.getElementById('content-placeholder').innerHTML = '<p class="text-red-500">Gagal memuat konten. Periksa koneksi dan file settings.json.</p>';
+            }
+        }
+
+        // =======================================================
+        // ========= FUNGSI RENDER (MENAMPILKAN DATA) =========
+        // =======================================================
+        
+        // Fungsi untuk menampilkan mini banner
+        function renderMiniBanners(services) {
+            const bannerContainer = document.getElementById('mini-banners');
+            bannerContainer.innerHTML = services.map(service => `
+                <a href="${service.url}" target="_blank" class="group block overflow-hidden rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                    <img src="${service.image}" alt="${service.name}" class="w-full h-24 sm:h-32 object-cover">
+                    <div class="bg-green-800 p-2 text-center">
+                        <p class="text-sm font-semibold text-yellow-400 group-hover:text-white">${service.name}</p>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        // Fungsi untuk menampilkan berita
+        function showNews(newsData) {
+            const newsList = document.getElementById('news-list');
+            newsList.innerHTML = newsData.map(n => `
+                <div class="mb-4 p-3 bg-green-800 rounded">
+                    <h3 class="font-bold text-sm">${n.title}</h3>
+                    <p class="text-xs text-gray-300">${n.time}</p>
+                </div>
+            `).join('');
+        }
+
+        // Fungsi untuk menampilkan agenda
+        function showAgenda(agendaData) {
+            const agendaList = document.getElementById('agenda-list');
+            const agendaHtml = agendaData.map(a => `
+                <div class="mb-3 p-3 bg-gray-800 rounded border-l-4 border-yellow-400">
+                    <p class="font-bold text-yellow-300 text-sm">${a.time} WIB</p>
+                    <h3 class="font-semibold text-white text-sm">${a.title}</h3>
+                    <p class="text-xs text-gray-400 mt-1">${a.location}</p>
+                </div>
+            `).join('');
+            agendaList.innerHTML = agendaHtml + agendaHtml; // Duplikasi untuk scroll mulus
+        }
+        
+        // Fungsi untuk memperbarui running text
+        function updateRunningText(text) {
+            document.getElementById('running-text-display').textContent = text;
+        }
+
+        // =======================================================
+        // ========= FUNGSI LAINNYA (JAM & PLAYLIST) ==========
+        // =======================================================
         function updateClock() {
             const now = new Date();
             document.getElementById('clock').textContent = now.toLocaleString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -173,7 +211,6 @@
             document.getElementById('year').textContent = now.getFullYear();
         }
         setInterval(updateClock, 1000);
-        updateClock();
 
         const playlist = [
             { type: 'image', src: 'https://picsum.photos/seed/tapin-galeri1/1200/800.jpg', duration: 10000 },
@@ -187,15 +224,11 @@
             { type: 'social', bagian: 'Bagian Pemerintahan', qr: 'images/qr-bagpem.png', duration: 15000 },
         ];
 
-        const newsData = [ { title: 'Pemkab Tapin Raih WTP ke-5 Kalinya', time: '2 jam lalu' }, { title: 'Sekda Buka Musrenbang RKPD 2024', time: '5 jam lalu' } ];
-        const agendaData = [ { time: '09:00', title: 'Rapat Koordinasi Forkopimda', location: 'Ruang Rapat Sekda' }, { time: '10:30', title: 'Menerima Audiensi dari IKAPTK', location: 'Ruang Tamu Utama' }, { time: '14:00', title: 'Menerima Audiensi PT. Nusantara Jaya', location: 'Ruang Tamu Utama' }, { time: '16:00', title: 'Review Kinerja Triwulan II', location: 'Ruang Rapat Bupati' } ];
-
         let currentPlaylistIndex = 0;
-
         function showContent() {
             const item = playlist[currentPlaylistIndex];
             const placeholder = document.getElementById('content-placeholder');
-            placeholder.innerHTML = ''; // Kosongkan dulu
+            placeholder.innerHTML = '';
 
             let contentHtml = '';
             if (item.type === 'image') {
@@ -231,34 +264,19 @@
                 showContent();
             }, item.duration);
         }
-        
-        function showNews() {
-            const newsList = document.getElementById('news-list');
-            newsList.innerHTML = newsData.map(n => `
-                <div class="mb-4 p-3 bg-green-800 rounded">
-                    <h3 class="font-bold text-sm">${n.title}</h3>
-                    <p class="text-xs text-gray-300">${n.time}</p>
-                </div>
-            `).join('');
-        }
 
-        function showAgenda() {
-            const agendaList = document.getElementById('agenda-list');
-            const agendaHtml = agendaData.map(a => `
-                <div class="mb-3 p-3 bg-gray-800 rounded border-l-4 border-yellow-400">
-                    <p class="font-bold text-yellow-300 text-sm">${a.time} WIB</p>
-                    <h3 class="font-semibold text-white text-sm">${a.title}</h3>
-                    <p class="text-xs text-gray-400 mt-1">${a.location}</p>
-                </div>
-            `).join('');
-            agendaList.innerHTML = agendaHtml + agendaHtml;
-        }
+        // =======================================================
+        // ========= JALANKAN SEMUA ============================
+        // =======================================================
+        // Jalankan semua fungsi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            updateClock();
+            loadSettings(); // Mulai dengan memuat settings
+            showContent();
+            // Reload halaman setiap 10 menit untuk mendapat data terbaru
+            setTimeout(() => location.reload(), 600000);
+        });
 
-        // JALANKAN SEMUA
-        showContent();
-        showNews();
-        showAgenda();
-        setTimeout(() => location.reload(), 600000);
     </script>
     <script async src="https://www.tiktok.com/embed.js"></script>
 </body>
