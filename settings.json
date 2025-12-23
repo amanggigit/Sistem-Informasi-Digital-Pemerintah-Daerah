@@ -52,5 +52,29 @@
       "url": "https://pengaduan.tapinkab.go.id",
       "image": "https://picsum.photos/seed/pengaduan-masyarakat-tapin/400/200.jpg"
     }
+  ],
+  "playlist": [
+    {
+      "type": "image",
+      "src": "https://picsum.photos/seed/tapin-galeri1/1200/800.jpg",
+      "duration": 10000
+    },
+    {
+      "type": "video",
+      "src": "videos/profile-tapin.mp4",
+      "duration": 60000
+    },
+    {
+      "type": "tiktok",
+      "videoId": "7585738238728424725",
+      "username": "h_yamani_official",
+      "duration": 30000
+    },
+    {
+      "type": "social",
+      "bagian": "Bagian Pemerintahan",
+      "qr": "images/qr-bagpem.png",
+      "duration": 15000
+    }
   ]
 }
