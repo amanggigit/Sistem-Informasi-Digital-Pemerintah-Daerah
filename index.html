@@ -17,40 +17,28 @@
         .running-text { animation: scroll-left 30s linear infinite; }
         @keyframes scroll-left { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        /* AGENDA SCROLL */
+        /* ======================================================= */
+        /* ========= PERUBAHAN CSS UNTUK BERITA & AGENDA ======== */
+        /* ======================================================= */
+        /* AGENDA SCROLL (VERTIKAL) */
         .agenda-scroll-wrapper { height: 224px; overflow: hidden; }
         .agenda-scroll-content { animation: scroll-up 25s linear infinite; }
         @keyframes scroll-up { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
 
-        /* ======================================================= */
-        /* ========= TAMBAHAN CSS UNTUK BERITA SCROLL KE SAMPING = */
-        /* ======================================================= */
+        /* BERITA SCROLL (HORIZONTAL) */
         .news-scroll-wrapper {
-            overflow-x: auto; /* Aktifkan scroll horizontal */
-            overflow-y: hidden; /* Sembunyikan scroll vertikal */
-            -webkit-overflow-scrolling: touch; /* Scroll halus di perangkat sentuh */
-            scrollbar-width: thin; /* Buat scrollbar lebih tipis (Firefox) */
-            scrollbar-color: #059669 #1f2937; /* Warna scrollbar (jempol / track) */
+            overflow: hidden; /* Sembunyikan overflow */
         }
         .news-scroll-content {
             display: flex; /* Susun item secara horizontal */
-            gap: 1rem; /* Jarak antar item berita */
-            padding-bottom: 1rem; /* Beri jarak di bawah untuk scrollbar */
+            animation: scroll-horizontal 30s linear infinite; /* Terapkan animasi */
         }
-        /* Custom scrollbar untuk Webkit (Chrome, Safari) */
-        .news-scroll-wrapper::-webkit-scrollbar {
-            height: 8px; /* Tinggi scrollbar horizontal */
-        }
-        .news-scroll-wrapper::-webkit-scrollbar-track {
-            background: #1f2937; /* Warna track */
-            border-radius: 4px;
-        }
-        .news-scroll-wrapper::-webkit-scrollbar-thumb {
-            background-color: #059669; /* Warna jempol/scrollbar */
-            border-radius: 4px;
+        @keyframes scroll-horizontal {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* Geser setengah jalan */
         }
         /* ======================================================= */
-        /* ========= AKHIR TAMBAHAN CSS ========================== */
+        /* ========= AKHIR PERUBAHAN CSS ======================== */
         /* ======================================================= */
     </style>
 </head>
@@ -102,17 +90,17 @@
                     <p class="text-center text-xs text-gray-300">Kabupaten Tapin</p>
                 </div>
 
-                <!-- ======================================================= -->
-                <!-- ========= PERUBAHAN STRUKTUR HTML BERITA ========= -->
-                <!-- ======================================================= -->
+                <!-- ======================================================= */
+                /* ========= PERUBAHAN STRUKTUR HTML BERITA ======== */
+                /* ======================================================= */
                 <!-- Berita -->
                 <h2 class="text-xl font-bold mb-4 text-yellow-400">Berita Terkini</h2>
                 <div class="news-scroll-wrapper">
                     <div id="news-list" class="news-scroll-content">
-                        <!-- Berita akan dimuat oleh JavaScript -->
+                        <!-- Berita akan dimuat dan diduplikasi oleh JavaScript -->
                     </div>
                 </div>
-                <!-- ======================================================= */
+                /* ======================================================= */
                 /* ========= AKHIR PERUBAHAN STRUKTUR ============== */
                 /* ======================================================= */
                 
@@ -188,21 +176,24 @@
             }
         }
 
-        // =======================================================
-        // ========= PERUBAHAN FUNGSI RENDER BERITA ============== */
-        // =======================================================
-        // Fungsi untuk menampilkan berita (horizontal scroll)
+        // ======================================================= */
+        /* ========= PERUBAHAN FUNGSI RENDER BERITA (DUPLIKASI) == */
+        /* ======================================================= */
+        // Fungsi untuk menampilkan berita dengan duplikasi untuk scroll mulus
         function showNews(newsData) {
             const newsList = document.getElementById('news-list');
-            newsList.innerHTML = newsData.map(n => `
+            const newsHtml = newsData.map(n => `
                 <div class="flex-shrink-0 w-64 p-4 bg-green-800 rounded-lg border border-green-700">
                     <h3 class="font-bold text-sm mb-2">${n.title}</h3>
                     <p class="text-xs text-gray-300">${n.time}</p>
                 </div>
             `).join('');
+
+            // Duplikasi konten untuk membuat loop tak terbatas
+            newsList.innerHTML = newsHtml + newsHtml;
         }
-        // ======================================================= */
-        /* ========= AKHIR PERUBAHAN FUNGSI ==================== */
+        /* ======================================================= */
+        /* ========= AKHIR PERUBAHAN FUNGSI ===================== */
         /* ======================================================= */
         
         // Fungsi lainnya (tidak berubah)
