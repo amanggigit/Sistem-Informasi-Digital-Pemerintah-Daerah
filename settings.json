@@ -1,5 +1,5 @@
 {
-  "runningText": ">> BB Selamat Datang di Sekretariat Daerah Kabupaten Tapin. Mohon menjaga ketertiban dan kebersihan. Pelayanan Bagian Umum akan tutup pukul 15:00 WIB. >>",
+  "runningText": ">> Selamat Datang di Sekretariat Daerah Kabupaten Tapin. Mohon menjaga ketertiban dan kebersihan. Pelayanan Bagian Umum akan tutup pukul 15:00 WIB. >>",
   "news": [
     {
       "title": "Pemkab Tapin Raih WTP ke-5 Kalinya",
@@ -51,18 +51,23 @@
       "name": "Pengaduan",
       "url": "https://pengaduan.tapinkab.go.id",
       "image": "https://picsum.photos/seed/pengaduan-masyarakat-tapin/400/200.jpg"
+    },
+    {
+      "name": "PPID",
+      "url": "https://ppid.tapinkab.go.id",
+      "image": "https://picsum.photos/seed/ppid-tapin/400/200.jpg"
+    },
+    {
+      "name": "LPSE",
+      "url": "https://lpse.tapinkab.go.id",
+      "image": "https://picsum.photos/seed/lpse-tapin/400/200.jpg"
     }
   ],
   "playlist": [
     {
       "type": "image",
-      "src": "https://i.ibb.co.com/vvRD6tXk/WISUDA-01.jpg",
-      "duration": 8000
-    },
-        {
-      "type": "image",
-      "src": "https://i.ibb.co.com/p5zvtC5/WISUDA-02.jpg",
-      "duration": 8000
+      "src": "https://picsum.photos/seed/tapin-galeri1/1200/800.jpg",
+      "duration": 10000
     },
     {
       "type": "video",
@@ -83,4 +88,3 @@
     }
   ]
 }
-
