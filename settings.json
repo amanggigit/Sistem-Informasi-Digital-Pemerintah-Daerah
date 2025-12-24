@@ -1,4 +1,10 @@
 {
+  "theme": {
+    "backgroundColor": "#1a4d2e",
+    "gradientStart": "rgba(0,0,0,0.2)",
+    "gradientEnd": "rgba(0,0,0,0)",
+    "accentColor": "#059669"
+  },
   "runningText": ">> Selamat Datang di Sekretariat Daerah Kabupaten Tapin. Mohon menjaga ketertiban dan kebersihan. Pelayanan Bagian Umum akan tutup pukul 15:00 WIB. >>",
   "news": [
     {
@@ -53,14 +59,14 @@
       "image": "https://picsum.photos/seed/pengaduan-masyarakat-tapin/400/200.jpg"
     },
     {
-      "name": "PPID",
-      "url": "https://ppid.tapinkab.go.id",
-      "image": "https://picsum.photos/seed/ppid-tapin/400/200.jpg"
+      "name": "Layanan E-KTP",
+      "url": "https://layanan.disdukcapil.go.id",
+      "image": "https://picsum.photos/seed/layanan-ektp-tapin/400/200.jpg"
     },
     {
-      "name": "LPSE",
-      "url": "https://lpse.tapinkab.go.id",
-      "image": "https://picsum.photos/seed/lpse-tapin/400/200.jpg"
+      "name": "PPID",
+      "url": "https://ppid.kominfo.go.id",
+      "image": "https://picsum.photos/seed/ppid-tapin/400/200.jpg"
     }
   ],
   "playlist": [
