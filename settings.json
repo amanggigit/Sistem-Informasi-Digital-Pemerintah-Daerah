@@ -84,8 +84,13 @@
   "playlist": [
     {
       "type": "image",
-      "src": "https://picsum.photos/seed/tapin-galeri1/1200/800.jpg",
-      "duration": 10000
+      "src": "https://i.ibb.co.com/vvRD6tXk/WISUDA-01.jpg",
+      "duration": 8000
+    },
+        {
+      "type": "image",
+      "src": "https://i.ibb.co.com/p5zvtC5/WISUDA-02.jp",
+      "duration": 8000
     },
     {
       "type": "video",
@@ -121,5 +126,6 @@
     }
   ]
 }
+
 
 
