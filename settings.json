@@ -89,7 +89,22 @@
     },
     {
       "type": "video",
-      "src": "videos/profile-tapin.mp4",
+      "src": "Download (14).mp4",
+      "duration": 60000
+    },
+        {
+      "type": "video",
+      "src": "Download (15).mp4",
+      "duration": 60000
+    },
+        {
+      "type": "video",
+      "src": "Download (16).mp4",
+      "duration": 60000
+    },
+        {
+      "type": "video",
+      "src": "Download (17).mp4",
       "duration": 60000
     },
     {
@@ -106,4 +121,5 @@
     }
   ]
 }
+
 
