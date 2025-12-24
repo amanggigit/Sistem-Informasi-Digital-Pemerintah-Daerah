@@ -46,27 +46,27 @@
     {
       "name": "Layanan Publik",
       "url": "https://layanan.tapinkab.go.id",
-      "image": "https://picsum.photos/seed/layanan-publik-tapin/400/200.jpg"
+      "image": "https://i.ibb.co.com/STrZ6h7/6.jpg"
     },
     {
       "name": "E-Planning",
       "url": "https://e-planning.tapinkab.go.id",
-      "image": "https://picsum.photos/seed/e-planning-tapin/400/200.jpg"
+      "image": "https://i.ibb.co.com/9kNgPgWW/7.jpg"
     },
     {
       "name": "Pengaduan",
       "url": "https://pengaduan.tapinkab.go.id",
-      "image": "https://picsum.photos/seed/pengaduan-masyarakat-tapin/400/200.jpg"
+      "image": "https://i.ibb.co.com/qXpjqsP/8.jpg"
     },
     {
       "name": "Layanan E-KTP",
       "url": "https://layanan.disdukcapil.go.id",
-      "image": "https://picsum.photos/seed/layanan-ektp-tapin/400/200.jpg"
+      "image": "https://i.ibb.co.com/DPWX8ZR4/9.jpg"
     },
     {
       "name": "PPID",
       "url": "https://ppid.kominfo.go.id",
-      "image": "https://picsum.photos/seed/ppid-tapin/400/200.jpg"
+      "image": "https://i.ibb.co.com/jkMjrXyB/10.jpg"
     }
   ],
   "sideBanners": [
@@ -106,3 +106,4 @@
     }
   ]
 }
+
