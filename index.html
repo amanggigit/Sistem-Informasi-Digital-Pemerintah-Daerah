@@ -23,19 +23,42 @@
         @keyframes scroll-up { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
 
         /* BERITA SCROLL (HORIZONTAL) */
-        .news-scroll-wrapper {
-            overflow: hidden; /* Sembunyikan overflow */
-        }
+        .news-scroll-wrapper { overflow: hidden; }
         .news-scroll-content {
-            display: flex; /* Susun item secara horizontal */
-            animation: scroll-horizontal 30s linear infinite; /* Terapkan animasi */
-            gap: 1rem; /* Jarak antar item berita */
-            padding-bottom: 1rem; /* Beri jarak di bawah untuk scrollbar */
+            display: flex;
+            animation: scroll-horizontal 30s linear infinite;
+            gap: 1rem;
+            padding-bottom: 1rem;
         }
         @keyframes scroll-horizontal {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } /* Geser setengah jalan */
+            100% { transform: translateX(-50%); }
         }
+
+        /* ======================================================= */
+        /* ========= TAMBAHAN CSS UNTUK SLIDER FOTO ========= */
+        /* ======================================================= */
+        .photo-slider-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .photo-slider-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+        .photo-slide {
+            min-width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        /* ======================================================= */
+        /* ========= AKHIR TAMBAHAN CSS ===================== */
+        /* ======================================================= */
     </style>
 </head>
 <body class="font-sans text-white">
@@ -50,7 +73,7 @@
         <header class="bg-green-900 p-5 flex justify-between items-center shadow-lg flex-shrink-0">
             <img src="https://i.ibb.co.com/VYSg111n/Salinan-dari-bupati-01.gif" alt="Logo Tapin" class="h-12">
             <div class="text-center">
-                <h1 class="text-2xl font-bold text-yellow-600">SIDIG</h1>
+                <h1 class="text-2xl font-bold text-yellow-600">SIDA</h1>
                 <p class="text-xs text-gray-300">Sistem Informasi Digital Pemerintah Daerah</p>
             </div>
             <div class="flex items-center space-x-3">
@@ -62,59 +85,55 @@
 
         <!-- AREA KONTEN UTAMA -->
         <div class="flex flex-1 overflow-hidden">
-            <!-- ZONA A: Kolom Kiri -->
-            <main class="w-3/4 p-4 flex flex-col">
-                <!-- AREA KONTEN DINAMIS -->
-                <div id="dynamic-content" class="flex-1 rounded-lg mb-4 p-4 flex items-center justify-center overflow-hidden" style="background: linear-gradient(to right, rgba(0,0,0,0.2), rgba(0,0,0,0));">
-                    <div id="content-placeholder" class="max-w-full max-h-full">
-                        <p class="text-2xl">Memuat konten...</p>
+            <!-- ======================================================= -->
+            <!-- ========= PERUBAHAN STRUKTUR ZONA A (80/20) ========= -->
+            <!-- ======================================================= -->
+            <!-- ZONA A: Kolom Kiri (80%) -->
+            <main class="w-4/5 p-4 flex flex-col">
+                <!-- AREA SLIDER FOTO (80% dari ZONA A) -->
+                <div class="flex-1 h-full mb-4 rounded-lg overflow-hidden photo-slider-wrapper">
+                    <div id="photo-slider-track" class="photo-slider-track">
+                        <!-- Slide akan dimuat oleh JavaScript -->
                     </div>
                 </div>
 
-                <!-- AREA MINI BANNER (DINAMIS) -->
-                <div id="mini-banners" class="grid grid-cols-5 gap-4 flex-shrink-0">
-                    <!-- Banner akan dimuat oleh JavaScript -->
+                <!-- AREA KONTEN STATIS (20% dari ZONA A) -->
+                <div class="w-1/5 h-full rounded-lg overflow-hidden bg-black bg-opacity-20 p-4 flex flex-col justify-center items-center">
+                    <div id="static-content-placeholder" class="w-full h-full flex flex-col justify-center items-center">
+                        <!-- Konten (video/QR) akan dimuat oleh JavaScript -->
+                    </div>
                 </div>
             </main>
+            <!-- ======================================================= -->
+            <!-- ========= AKHIR PERUBAHAN STRUKTUR ==================== -->
+            <!-- ======================================================= -->
 
-            <!-- ======================================================= -->
-            <!-- ========= PERUBAHAN STRUKTUR ZONA B (SIDEBAR) ========= -->
-            <!-- ======================================================= -->
             <!-- ZONA B: Kolom Kanan -->
             <aside class="w-1/4 bg-black bg-opacity-50 p-4 overflow-y-auto">
-                
-                <!-- 1. Banner Pimpinan (Paling Atas) -->
+                <!-- Banner Pimpinan -->
                 <div class="mb-6 p-3 bg-green-800 rounded-lg border border-yellow-400">
-                    <!-- PERHATIAN: GANTI GAMBAR INI DENGAN FOTO ASLI BUPATI -->
-                    <img src="https://i.ibb.co.com/fVQSFcqz/bupati-01.jpg" alt="H Yamani, S.AK., MM - H Juanda" class="w-full h-40 object-cover rounded mb-2">
-                    <h3 class="text-center text-sm font-bold text-yellow-400">H Yamani, S.AK., MM - H Juanda</h3>
-                    <p class="text-center text-xs text-gray-300">BUPATI TAPIN - WAKIL BUPATI TAPIN
-
-</p>
+                    <img src="https://i.ibb.co.com/WWy8xYhG/bupati-01.jpg" alt="Bupati dan Wakil Bupati Tapin" class="w-full h-40 object-cover rounded mb-2">
+                    <h3 class="text-center text-sm font-bold text-yellow-400">Pimpinan Daerah</h3>
+                    <p class="text-center text-xs text-gray-300">Kabupaten Tapin</p>
                 </div>
 
-                <!-- 2. Agenda Pimpinan -->
-                <h2 class="text-xl font-bold mb-4 text-yellow-400">Agenda Pimpinan</h2>
-                <div class="agenda-scroll-wrapper">
-                    <div id="agenda-list" class="agenda-scroll-content"></div>
-                </div>
-
-                <!-- 3. Berita -->
+                <!-- Berita -->
                 <h2 class="text-xl font-bold mb-4 text-yellow-400">Berita Terkini</h2>
                 <div class="news-scroll-wrapper">
                     <div id="news-list" class="news-scroll-content"></div>
                 </div>
-
-                <!-- 4. Mini Banner 1 & 2 (Paling Bawah) -->
-                <div class="grid grid-cols-2 gap-4 mb-4">
-                    <div id="side-banners-wrapper">
-                        <!-- Banner akan dimuat oleh JavaScript -->
-                    </div>
+                
+                <!-- Banner Sisi -->
+                <div id="side-banners-wrapper" class="mb-6">
+                    <!-- Banner akan dimuat oleh JavaScript -->
+                </div>
+                
+                <!-- Agenda -->
+                <h2 class="text-xl font-bold mt-6 mb-4 text-yellow-400">Agenda Pimpinan</h2>
+                <div class="agenda-scroll-wrapper">
+                    <div id="agenda-list" class="agenda-scroll-content"></div>
                 </div>
             </aside>
-            <!-- ======================================================= -->
-            <!-- ========= AKHIR PERUBAHAN STRUKTUR ============== -->
-            <!-- ======================================================= -->
         </div>
 
         <!-- FOOTER -->
@@ -160,8 +179,36 @@
         });
 
         // VARIABEL GLOBAL
+        let sliderPhotos = [];
+        let currentSlideIndex = 0;
+        let staticContent = null;
         let playlist = [];
-        let currentPlaylistIndex = 0;
+
+        // =======================================================
+        // ========= FUNGSI UNTUK SLIDER FOTO ==================
+        // =======================================================
+        function renderPhotoSlider(photos) {
+            const track = document.getElementById('photo-slider-track');
+            track.innerHTML = photos.map(photo => `
+                <div class="photo-slide">
+                    <img src="${photo.src}" alt="${photo.caption}" class="w-full h-full object-cover">
+                </div>
+            `).join('');
+        }
+
+        function showNextSlide() {
+            const track = document.getElementById('photo-slider-track');
+            const amountToScroll = track.offsetWidth;
+            track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+            currentSlideIndex = (currentSlideIndex + 1) % photos.length;
+        }
+
+        // Otomatis geser setiap 5 detik
+        setInterval(showNextSlide, 5000);
+
+        // =======================================================
+        // ========= AKHIR FUNGSI SLIDER ====================
+        // =======================================================
 
         // FUNGSI UTAMA (MEMUAT DATA)
         async function loadSettings() {
@@ -169,24 +216,53 @@
                 const response = await fetch('settings.json');
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 const settings = await response.json();
-                playlist = settings.playlist;
+                
+                sliderPhotos = settings.sliderPhotos;
+                staticContent = settings.staticContent;
+                
+                renderPhotoSlider(sliderPhotos);
                 renderMiniBanners(settings.services);
-                renderSideBanners(settings.sideBanners); // Fungsi ini sudah ada
+                renderSideBanners(settings.sideBanners);
                 showNews(settings.news);
                 showAgenda(settings.agenda);
                 updateRunningText(settings.runningText);
-                showContent();
+                showContent(); // Memulai playlist utama
             } catch (error) {
                 console.error("Gagal memuat settings.json:", error);
-                document.getElementById('content-placeholder').innerHTML = '<p class="text-red-500">Gagal memuat konten. Periksa koneksi dan file settings.json.</p>';
+                document.getElementById('static-content-placeholder').innerHTML = '<p class="text-red-500">Gagal memuat konten. Periksa koneksi dan file settings.json.</p>';
             }
         }
 
-        // FUNGSI RENDER (MENAMPILKAN DATA)
+        // =======================================================
+        // ========= PERUBAHAN FUNGSI UTAMA (PLAYLIST) =========
+        // =======================================================
         function showContent() {
             const item = playlist[currentPlaylistIndex];
             const placeholder = document.getElementById('content-placeholder');
-            placeholder.innerHTML = '';
+            const staticPlaceholder = document.getElementById('static-content-placeholder');
+            
+            // Sembunykan konten utama dan statis
+            placeholder.style.display = 'none';
+            staticPlaceholder.style.display = 'none';
+
+            if (item.type === 'slider') {
+                placeholder.style.display = 'block'; // Tampilkan slider
+            } else if (item.type === 'static_content') {
+                staticPlaceholder.style.display = 'flex'; // Tampilkan konten statis
+            } else {
+                placeholder.style.display = 'flex'; // Tampilkan konten lain (tiktok, social)
+            }
+
+            // Logika render untuk item 'slider' dan 'static_content' akan ditangani di bawah
+        }
+        
+        // =======================================================
+        // ========= FUNGSI RENDER KONTEN (DIPERBARUI) =========
+        // =======================================================
+        function renderContent(item) {
+            const placeholder = document.getElementById('content-placeholder');
+            const staticPlaceholder = document.getElementById('static-content-placeholder');
+            
             let contentHtml = '';
             if (item.type === 'image') {
                 contentHtml = `<img src="${item.src}" class="max-w-full max-h-full object-contain">`;
@@ -214,12 +290,31 @@
             if (item.type === 'tiktok' && window.tiktokEmbed) {
                 window.tiktokEmbed();
             }
-            setTimeout(() => {
-                currentPlaylistIndex = (currentPlaylistIndex + 1) % playlist.length;
-                showContent();
-            }, item.duration);
         }
-        
+
+        // =======================================================
+        // ========= FUNGSI RENDER KONTEN STATIS =========
+        // =======================================================
+        function renderStaticContent(content) {
+            const staticPlaceholder = document.getElementById('static-content-placeholder');
+            let contentHtml = '';
+            
+            if (content.type === 'video') {
+                contentHtml = `<video src="${content.src}" autoplay muted loop class="w-full h-full object-cover rounded-lg"></video>`;
+            } else if (content.qr) {
+                contentHtml = `
+                    <div class="text-center">
+                        <h2 class="text-2xl font-bold text-yellow-400 mb-4">Scan untuk Info Lebih Lanjut</h2>
+                        <img src="${content.qr}" alt="QR Code" class="w-48 h-48 mx-auto border-4 border-yellow-400 p-2 bg-white rounded-lg">
+                    </div>`;
+            }
+            staticPlaceholder.innerHTML = contentHtml;
+        }
+        // =======================================================
+        // ========= AKHIR FUNGSI RENDER STATIS ==================
+        // =======================================================
+
+        // Fungsi lainnya (tidak berubah)
         function renderMiniBanners(services) {
             const bannerContainer = document.getElementById('mini-banners');
             bannerContainer.innerHTML = services.map(service => `
@@ -231,8 +326,6 @@
                 </a>
             `).join('');
         }
-        
-        // Fungsi renderSideBanners (sudah ada, tidak perlu diubah)
         function renderSideBanners(banners) {
             const bannerContainer = document.getElementById('side-banners-wrapper');
             if (!bannerContainer || !banners || banners.length === 0) {
@@ -248,7 +341,6 @@
                 </a>
             `).join('');
         }
-        
         function showNews(newsData) {
             const newsList = document.getElementById('news-list');
             const newsHtml = newsData.map(n => `
@@ -292,4 +384,3 @@
     <script async src="https://www.tiktok.com/embed.js"></script>
 </body>
 </html>
-
