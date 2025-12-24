@@ -120,12 +120,12 @@
         {
       "type": "video",
       "src": "Download (15).mp4",
-      "duration": 60000
+      "duration": 0
     },
         {
       "type": "video",
       "src": "Download (16).mp4",
-      "duration": 60000
+      "duration": 0
     },
         {
       "type": "video",
@@ -136,16 +136,17 @@
       "type": "tiktok",
       "videoId": "7585738238728424725",
       "username": "h_yamani_official",
-      "duration": 30000
+      "duration": 0
     },
     {
       "type": "social",
       "bagian": "Bagian Pemerintahan",
       "qr": "images/qr-bagpem.png",
-      "duration": 15000
+      "duration": 0
     }
   ]
 }
+
 
 
 
