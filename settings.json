@@ -3,7 +3,7 @@
     "backgroundColor": "#1a4d2e",
     "gradientStart": "rgba(0,0,0,0.2)",
     "gradientEnd": "rgba(0,0,0,0)",
-    "accentColor": "#059669"
+    "accentColor": "#e1eb2f"
   },
   "runningText": ">> Selamat Datang di Sekretariat Daerah Kabupaten Tapin. Mohon menjaga ketertiban dan kebersihan. Pelayanan Bagian Umum akan tutup pukul 15:00 WIB. >>",
   "news": [
@@ -94,3 +94,4 @@
     }
   ]
 }
+
