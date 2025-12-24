@@ -1,0 +1,156 @@
+{
+  "theme": {
+    "backgroundColor": "#1a4d2e",
+    "gradientStart": "rgba(0,0,0,0.2)",
+    "gradientEnd": "rgba(0,0,0,0)",
+    "accentColor": "#059669"
+  },
+  "runningText": ">> SELAMAT DATANG DI PEMERINTAH KABUPATEN TAPIN – SEKRETARIAT DAERAH – PEMKAB TAPIN | SETDA – MELAYANI DENGAN PROFESIONAL, TRANSPARAN, DAN BERINTEGRITAS. >>",
+  "news": [
+    {
+      "title": "Pemkab Tapin Raih WTP ke-5 Kalinya",
+      "time": "2 jam lalu"
+    },
+    {
+      "title": "Sekda Buka Musrenbang RKPD 2024",
+      "time": "5 jam lalu"
+    },
+    {
+      "title": "Bupati Luncurkan Program Digitalisasi Pasar",
+      "time": "1 hari lalu"
+    }
+  ],
+  "agenda": [
+    {
+      "time": "09:00",
+      "title": "Rapat Koordinasi Forkopimda",
+      "location": "Ruang Rapat Sekda"
+    },
+    {
+      "time": "10:30",
+      "title": "Menerima Audiensi dari IKAPTK",
+      "location": "Ruang Tamu Utama"
+    },
+    {
+      "time": "14:00",
+      "title": "Menerima Audiensi PT. Nusantara Jaya",
+      "location": "Ruang Tamu Utama"
+    },
+    {
+      "time": "16:00",
+      "title": "Review Kinerja Triwulan II",
+      "location": "Ruang Rapat Bupati"
+    }
+  ],
+  "services": [
+    {
+      "name": "Layanan Publik",
+      "url": "https://layanan.tapinkab.go.id",
+      "image": "https://i.ibb.co.com/STrZ6h7/6.jpg"
+    },
+    {
+      "name": "Inovasi ",
+      "url": "https://e-planning.tapinkab.go.id",
+      "image": "https://i.ibb.co.com/9kNgPgWW/7.jpg"
+    },
+    {
+      "name": "Pengaduan",
+      "url": "https://pengaduan.tapinkab.go.id",
+      "image": "https://i.ibb.co.com/qXpjqsP/8.jpg"
+    },
+    {
+      "name": "PENTAS JAPIN ",
+      "url": "https://layanan.disdukcapil.go.id",
+      "image": "https://i.ibb.co.com/DPWX8ZR4/9.jpg"
+    },
+    {
+      "name": "PPID",
+      "url": "https://ppid.kominfo.go.id",
+      "image": "https://i.ibb.co.com/jkMjrXyB/10.jpg"
+    }
+  ],
+  "sideBanners": [
+    {
+      "name": "Website Resmi",
+      "url": "https://www.tapinkab.go.id",
+      "image": "https://picsum.photos/seed/website-resmi-tapin/400/150.jpg"
+    },
+    {
+      "name": "Lapor SP4N",
+      "url": "https://lapor.sp4n.lapor.go.id",
+      "image": "https://picsum.photos/seed/lapor-sp4n-tapin/400/150.jpg"
+    }
+  ],
+  "playlist": [
+    {
+      "type": "image",
+      "src": "https://i.ibb.co.com/vvRD6tXk/WISUDA-01.jpg",
+      "duration": 5000
+    },
+        {
+      "type": "image",
+      "src": "https://i.ibb.co.com/p5zvtC5/WISUDA-02.jpg",
+      "duration": 5000
+    },
+        {
+      "type": "image",
+      "src": "https://i.ibb.co.com/13dKJKk/601824004-1514067340720236-6907022515696076246-n.jpg",
+      "duration": 5000
+    },
+        {
+      "type": "image",
+      "src": "https://i.ibb.co.com/KchZcN4M/601820580-1514067690720201-5900928473471870087-n.jpg",
+      "duration": 5000
+    },
+        {
+      "type": "image",
+      "src": "https://i.ibb.co.com/7xZmMctX/605514516-1514283937365243-2824857893818477129-n.jpg",
+      "duration": 5000
+    },
+        {
+      "type": "image",
+      "src": "https://i.ibb.co.com/GfQQdtRZ/604375750-1514284057365231-2491948494129399369-n.jpg",
+      "duration": 5000
+    },
+    {
+      "type": "video",
+      "src": "Download (14).mp4",
+      "duration": 60000
+    },
+        {
+      "type": "video",
+      "src": "Download (15).mp4",
+      "duration": 60000
+    },
+        {
+      "type": "video",
+      "src": "Download (16).mp4",
+      "duration": 60000
+    },
+        {
+      "type": "video",
+      "src": "Download (17).mp4",
+      "duration": 60000
+    },
+    {
+      "type": "tiktok",
+      "videoId": "7585738238728424725",
+      "username": "h_yamani_official",
+      "duration": 30000
+    },
+    {
+      "type": "social",
+      "bagian": "Bagian Pemerintahan",
+      "qr": "images/qr-bagpem.png",
+      "duration": 15000
+    }
+  ]
+}
+
+
+
+
+
+
+
+
