@@ -85,12 +85,32 @@
     {
       "type": "image",
       "src": "https://i.ibb.co.com/vvRD6tXk/WISUDA-01.jpg",
-      "duration": 8000
+      "duration": 5000
     },
         {
       "type": "image",
       "src": "https://i.ibb.co.com/p5zvtC5/WISUDA-02.jpg",
-      "duration": 8000
+      "duration": 5000
+    },
+        {
+      "type": "image",
+      "src": "https://i.ibb.co.com/13dKJKk/601824004-1514067340720236-6907022515696076246-n.jpg",
+      "duration": 5000
+    },
+        {
+      "type": "image",
+      "src": "https://i.ibb.co.com/KchZcN4M/601820580-1514067690720201-5900928473471870087-n.jpg",
+      "duration": 5000
+    },
+        {
+      "type": "image",
+      "src": "https://i.ibb.co.com/7xZmMctX/605514516-1514283937365243-2824857893818477129-n.jpg",
+      "duration": 5000
+    },
+        {
+      "type": "image",
+      "src": "https://i.ibb.co.com/GfQQdtRZ/604375750-1514284057365231-2491948494129399369-n.jpg",
+      "duration": 5000
     },
     {
       "type": "video",
@@ -126,6 +146,7 @@
     }
   ]
 }
+
 
 
 
