@@ -23,16 +23,18 @@
         @keyframes scroll-up { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
 
         /* BERITA SCROLL (HORIZONTAL) */
-        .news-scroll-wrapper { overflow: hidden; }
+        .news-scroll-wrapper {
+            overflow: hidden; /* Sembunyikan overflow */
+        }
         .news-scroll-content {
-            display: flex;
-            animation: scroll-horizontal 30s linear infinite;
-            gap: 1rem;
-            padding-bottom: 1rem;
+            display: flex; /* Susun item secara horizontal */
+            animation: scroll-horizontal 30s linear infinite; /* Terapkan animasi */
+            gap: 1rem; /* Jarak antar item berita */
+            padding-bottom: 1rem; /* Beri jarak di bawah untuk scrollbar */
         }
         @keyframes scroll-horizontal {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            100% { transform: translateX(-50%); } /* Geser setengah jalan */
         }
     </style>
 </head>
@@ -48,7 +50,7 @@
         <header class="bg-green-900 p-5 flex justify-between items-center shadow-lg flex-shrink-0">
             <img src="https://i.ibb.co.com/VYSg111n/Salinan-dari-bupati-01.gif" alt="Logo Tapin" class="h-12">
             <div class="text-center">
-                <h1 class="text-2xl font-bold text-yellow-600">SIDIG</h1>
+                <h1 class="text-2xl font-bold text-yellow-600">SIDA</h1>
                 <p class="text-xs text-gray-300">Sistem Informasi Digital Pemerintah Daerah</p>
             </div>
             <div class="flex items-center space-x-3">
@@ -79,10 +81,20 @@
             <aside class="w-1/4 bg-black bg-opacity-50 p-4 overflow-y-auto">
                 <!-- Banner Pimpinan -->
                 <div class="mb-6 p-3 bg-green-800 rounded-lg border border-yellow-400">
-                    <img src="https://i.ibb.co.com/fVQSFcqz/bupati-01.jpg" alt="H Yamani, S.AK., MM -  H Juanda " class="w-full h-40 object-cover rounded mb-2">
-                    <h3 class="text-center text-sm font-bold text-yellow-400"> H Yamani, S.AK., MM -  H Juanda</h3>
-                    <p class="text-center text-xs text-gray-300">BUPATI TAPIN  - WAKIL BUPATI TAPIN</p>
+                    <img src="https://i.ibb.co.com/WWy8xYhG/bupati-01.jpg" alt="Bupati dan Wakil Bupati Tapin" class="w-full h-40 object-cover rounded mb-2">
+                    <h3 class="text-center text-sm font-bold text-yellow-400">Pimpinan Daerah</h3>
+                    <p class="text-center text-xs text-gray-300">Kabupaten Tapin</p>
                 </div>
+
+                <!-- ======================================================= -->
+                <!-- ========= PERUBAHAN: BANNER SISI DI POSISI BENAR ========= -->
+                <!-- ======================================================= -->
+                <div id="side-banners-wrapper" class="mb-6">
+                    <!-- Banner akan dimuat oleh JavaScript -->
+                </div>
+                <!-- ======================================================= -->
+                <!-- ========= AKHIR PERUBAHAN ========================== -->
+                <!-- ======================================================= -->
 
                 <!-- Berita -->
                 <h2 class="text-xl font-bold mb-4 text-yellow-400">Berita Terkini</h2>
@@ -90,11 +102,6 @@
                     <div id="news-list" class="news-scroll-content">
                         <!-- Berita akan dimuat dan diduplikasi oleh JavaScript -->
                     </div>
-                </div>
-                
-                <!-- Banner Sisi -->
-                <div id="side-banners-wrapper" class="mb-6">
-                    <!-- Banner akan dimuat oleh JavaScript -->
                 </div>
                 
                 <!-- Agenda -->
@@ -279,6 +286,3 @@
     <script async src="https://www.tiktok.com/embed.js"></script>
 </body>
 </html>
-
-
-
