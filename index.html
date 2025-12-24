@@ -1,108 +1,298 @@
-{
-  "theme": {
-    "backgroundColor": "#1a4d2e",
-    "gradientStart": "rgba(0,0,0,0.2)",
-    "gradientEnd": "rgba(0,0,0,0)",
-    "accentColor": "#059669"
-  },
-  "runningText": ">> Selamat Datang di Sekretariat Daerah Kabupaten Tapin. Mohon menjaga ketertiban dan kebersihan. Pelayanan Bagian Umum akan tutup pukul 15:00 WIB. >>",
-  "news": [
-    {
-      "title": "Pemkab Tapin Raih WTP ke-5 Kalinya",
-      "time": "2 jam lalu"
-    },
-    {
-      "title": "Sekda Buka Musrenbang RKPD 2024",
-      "time": "5 jam lalu"
-    },
-    {
-      "title": "Bupati Luncurkan Program Digitalisasi Pasar",
-      "time": "1 hari lalu"
-    }
-  ],
-  "agenda": [
-    {
-      "time": "09:00",
-      "title": "Rapat Koordinasi Forkopimda",
-      "location": "Ruang Rapat Sekda"
-    },
-    {
-      "time": "10:30",
-      "title": "Menerima Audiensi dari IKAPTK",
-      "location": "Ruang Tamu Utama"
-    },
-    {
-      "time": "14:00",
-      "title": "Menerima Audiensi PT. Nusantara Jaya",
-      "location": "Ruang Tamu Utama"
-    },
-    {
-      "time": "16:00",
-      "title": "Review Kinerja Triwulan II",
-      "location": "Ruang Rapat Bupati"
-    }
-  ],
-  "services": [
-    {
-      "name": "Layanan Publik",
-      "url": "https://layanan.tapinkab.go.id",
-      "image": "https://picsum.photos/seed/layanan-publik-tapin/400/200.jpg"
-    },
-    {
-      "name": "E-Planning",
-      "url": "https://e-planning.tapinkab.go.id",
-      "image": "https://picsum.photos/seed/e-planning-tapin/400/200.jpg"
-    },
-    {
-      "name": "Pengaduan",
-      "url": "https://pengaduan.tapinkab.go.id",
-      "image": "https://picsum.photos/seed/pengaduan-masyarakat-tapin/400/200.jpg"
-    },
-    {
-      "name": "Layanan E-KTP",
-      "url": "https://layanan.disdukcapil.go.id",
-      "image": "https://picsum.photos/seed/layanan-ektp-tapin/400/200.jpg"
-    },
-    {
-      "name": "PPID",
-      "url": "https://ppid.kominfo.go.id",
-      "image": "https://picsum.photos/seed/ppid-tapin/400/200.jpg"
-    }
-  ],
-  "sideBanners": [
-    {
-      "name": "Website Resmi",
-      "url": "https://www.tapinkab.go.id",
-      "image": "https://picsum.photos/seed/website-resmi-tapin/400/150.jpg"
-    },
-    {
-      "name": "Lapor SP4N",
-      "url": "https://lapor.sp4n.lapor.go.id",
-      "image": "https://picsum.photos/seed/lapor-sp4n-tapin/400/150.jpg"
-    }
-  ],
-  "playlist": [
-    {
-      "type": "image",
-      "src": "https://picsum.photos/seed/tapin-galeri1/1200/800.jpg",
-      "duration": 10000
-    },
-    {
-      "type": "video",
-      "src": "videos/profile-tapin.mp4",
-      "duration": 60000
-    },
-    {
-      "type": "tiktok",
-      "videoId": "7585738238728424725",
-      "username": "h_yamani_official",
-      "duration": 30000
-    },
-    {
-      "type": "social",
-      "bagian": "Bagian Pemerintahan",
-      "qr": "images/qr-bagpem.png",
-      "duration": 15000
-    }
-  ]
-}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Informasi Pemkab Tapin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* RESET & UTAMA */
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            overflow: hidden; /* CEGAH SCROLL HALAMAN */
+            background-color: #1a4d2e; 
+            font-family: 'system-ui', sans-serif;
+        }
+        .running-text { animation: scroll-left 30s linear infinite; }
+        @keyframes scroll-left { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        /* AGENDA SCROLL (VERTIKAL) */
+        .agenda-scroll-wrapper { height: 224px; overflow: hidden; }
+        .agenda-scroll-content { animation: scroll-up 25s linear infinite; }
+        @keyframes scroll-up { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
+
+        /* BERITA SCROLL (HORIZONTAL) */
+        .news-scroll-wrapper { overflow: hidden; }
+        .news-scroll-content {
+            display: flex;
+            animation: scroll-horizontal 30s linear infinite;
+            gap: 1rem;
+            padding-bottom: 1rem;
+        }
+        @keyframes scroll-horizontal {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+    </style>
+</head>
+<body class="font-sans text-white">
+    <!-- Tombol Fallback Fullscreen -->
+    <button id="fullscreen-btn" onclick="enterFullscreen()" style="display: none;" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-yellow-400 hover:bg-yellow-300 text-black font-bold py-4 px-8 rounded-lg shadow-2xl text-2xl">
+        Klik untuk Tampilan Penuh
+    </button>
+
+    <!-- CONTAINER UTAMA -->
+    <div class="flex flex-col h-screen overflow-hidden">
+        <!-- HEADER (Tinggi ditambah 50%) -->
+        <header class="bg-green-900 p-5 flex justify-between items-center shadow-lg flex-shrink-0">
+            <img src="https://i.ibb.co.com/VYSg111n/Salinan-dari-bupati-01.gif" alt="Logo Tapin" class="h-12">
+            <div class="text-center">
+                <h1 class="text-2xl font-bold text-yellow-600">SIDA</h1>
+                <p class="text-xs text-gray-300">Sistem Informasi Digital Pemerintah Daerah</p>
+            </div>
+            <div class="flex items-center space-x-3">
+                <img src="https://i.ibb.co.com/XwYDVfh/2.jpg" alt="Logo RI" class="h-10 object-contain">
+                <img src="https://i.ibb.co.com/tRrjrW8/3.jpg" alt="Logo Kalsel" class="h-10 object-contain">
+                <img src="https://i.ibb.co.com/wNwv62LQ/4.jpg" alt="Logo Tapin" class="h-10 object-contain">
+            </div>
+        </header>
+
+        <!-- AREA KONTEN UTAMA -->
+        <div class="flex flex-1 overflow-hidden">
+            <!-- ZONA A: Kolom Kiri -->
+            <main class="w-3/4 p-4 flex flex-col">
+                <!-- AREA KONTEN DINAMIS -->
+                <div id="dynamic-content" class="flex-1 rounded-lg mb-4 p-4 flex items-center justify-center overflow-hidden" style="background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));">
+                    <div id="content-placeholder" class="max-w-full max-h-full">
+                        <p class="text-2xl">Memuat konten...</p>
+                    </div>
+                </div>
+
+                <!-- AREA MINI BANNER (DINAMIS) -->
+                <div id="mini-banners" class="grid grid-cols-5 gap-4 flex-shrink-0">
+                    <!-- Banner akan dimuat oleh JavaScript -->
+                </div>
+            </main>
+
+            <!-- ZONA B: Kolom Kanan -->
+            <aside class="w-1/4 bg-black bg-opacity-50 p-4 overflow-y-auto">
+                <!-- Banner Pimpinan -->
+                <div class="mb-6 p-3 bg-green-800 rounded-lg border border-yellow-400">
+                    <img src="https://i.ibb.co.com/WWy8xYhG/bupati-01.jpg" alt="Bupati dan Wakil Bupati Tapin" class="w-full h-40 object-cover rounded mb-2">
+                    <h3 class="text-center text-sm font-bold text-yellow-400">Pimpinan Daerah</h3>
+                    <p class="text-center text-xs text-gray-300">Kabupaten Tapin</p>
+                </div>
+
+                <!-- ======================================================= -->
+                <!-- ========= TAMBAHAN: BANNER SISI BARU ========= -->
+                <!-- ======================================================= -->
+                <div id="side-banners-wrapper" class="mb-6">
+                    <!-- Banner akan dimuat oleh JavaScript -->
+                </div>
+                <!-- ======================================================= -->
+                <!-- ========= AKHIR TAMBAHAN ====================== -->
+                <!-- ======================================================= -->
+
+                <!-- Berita -->
+                <h2 class="text-xl font-bold mb-4 text-yellow-400">Berita Terkini</h2>
+                <div class="news-scroll-wrapper">
+                    <div id="news-list" class="news-scroll-content">
+                        <!-- Berita akan dimuat dan diduplikasi oleh JavaScript -->
+                    </div>
+                </div>
+                
+                <!-- Agenda -->
+                <h2 class="text-xl font-bold mt-6 mb-4 text-yellow-400">Agenda Pimpinan</h2>
+                <div class="agenda-scroll-wrapper">
+                    <div id="agenda-list" class="agenda-scroll-content"></div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="bg-green-900 p-2 flex justify-between items-center text-xs flex-shrink-0">
+            <div class="flex flex-col items-start">
+                <div class="text-3xl font-bold text-yellow-400" id="clock"></div>
+                <p class="text-xs text-gray-300" id="date"></p>
+            </div>
+            <div class="flex-1 mx-4 overflow-hidden">
+                <div class="running-text whitespace-nowrap">
+                    <span class="text-yellow-300 text-4xl" id="running-text-display">Loading...</span>
+                </div>
+            </div>
+            <div class="text-gray-400">
+                <span id="year"></span> Pemerintah Kabupaten Tapin
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // FUNGSI FULLSCREEN
+        function enterFullscreen() {
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+            const button = document.getElementById('fullscreen-btn');
+            if (button) button.style.display = 'none';
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const promise = document.documentElement.requestFullscreen();
+                promise.catch(() => {
+                    console.log("Fullscreen otomatis diblokir browser. Menampilkan tombol fallback.");
+                    const button = document.getElementById('fullscreen-btn');
+                    if (button) button.style.display = 'block';
+                });
+            }, 500);
+        });
+
+        // VARIABEL GLOBAL
+        let playlist = [];
+        let currentPlaylistIndex = 0;
+
+        // FUNGSI UTAMA (MEMUAT DATA)
+        async function loadSettings() {
+            try {
+                const response = await fetch('settings.json');
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const settings = await response.json();
+
+                // Terapkan tema terlebih dahulu
+                if (settings.theme) {
+                    applyTheme(settings.theme);
+                }
+
+                playlist = settings.playlist;
+                renderMiniBanners(settings.services);
+                renderSideBanners(settings.sideBanners); // Panggil fungsi baru
+                showNews(settings.news);
+                showAgenda(settings.agenda);
+                updateRunningText(settings.runningText);
+                showContent();
+            } catch (error) {
+                console.error("Gagal memuat settings.json:", error);
+                document.getElementById('content-placeholder').innerHTML = '<p class="text-red-500">Gagal memuat konten. Periksa koneksi dan file settings.json.</p>';
+            }
+        }
+
+        // FUNGSI RENDER (MENAMPILKAN DATA)
+        function showContent() {
+            const item = playlist[currentPlaylistIndex];
+            const placeholder = document.getElementById('content-placeholder');
+            placeholder.innerHTML = '';
+            let contentHtml = '';
+            if (item.type === 'image') {
+                contentHtml = `<img src="${item.src}" class="max-w-full max-h-full object-contain">`;
+            } else if (item.type === 'video') {
+                contentHtml = `<video src="${item.src}" autoplay muted loop class="max-w-full max-h-full object-contain"></video>`;
+            } else if (item.type === 'social') {
+                contentHtml = `
+                    <div class="text-center p-4">
+                        <h2 class="text-4xl font-bold mb-4">${item.bagian}</h2>
+                        <p class="text-xl mb-6">Ikuti kami di media sosial</p>
+                        <img src="${item.qr}" alt="QR Code" class="w-64 h-64 mx-auto border-4 border-accent p-2 bg-white">
+                        <p class="text-lg mt-4">Scan untuk menuju Instagram</p>
+                    </div>`;
+            } else if (item.type === 'tiktok') {
+                contentHtml = `
+                    <div class="w-full h-full flex items-center justify-center p-4">
+                        <div style="width: 100%; max-width: 485px; height: 100%; max-height: 85vh; position: relative;">
+                            <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@${item.username}/video/${item.videoId}?muted=1" data-video-id="${item.videoId}" style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
+                                <section> <a target="_blank" title="@${item.username}" href="https://www.tiktok.com/@${item.username}">@${item.username}</a> </section>
+                            </blockquote>
+                        </div>
+                    </div>`;
+            }
+            placeholder.innerHTML = contentHtml;
+            if (item.type === 'tiktok' && window.tiktokEmbed) {
+                window.tiktokEmbed();
+            }
+            setTimeout(() => {
+                currentPlaylistIndex = (currentPlaylistIndex + 1) % playlist.length;
+                showContent();
+            }, item.duration);
+        }
+        
+        function renderMiniBanners(services) {
+            const bannerContainer = document.getElementById('mini-banners');
+            bannerContainer.innerHTML = services.map(service => `
+                <a href="${service.url}" target="_blank" class="group block overflow-hidden rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                    <img src="${service.image}" alt="${service.name}" class="w-full h-24 sm:h-32 object-cover">
+                    <div class="bg-green-800 p-2 text-center">
+                        <p class="text-sm font-semibold text-accent group-hover:text-white">${service.name}</p>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        // =======================================================
+        // ========= TAMBAHAN FUNGSI RENDER BANNER SISI ========
+        // =======================================================
+        function renderSideBanners(banners) {
+            const bannerContainer = document.getElementById('side-banners-wrapper');
+            if (!bannerContainer || !banners || banners.length === 0) {
+                if(bannerContainer) bannerContainer.innerHTML = '';
+                return;
+            }
+            bannerContainer.innerHTML = banners.map(banner => `
+                <a href="${banner.url}" target="_blank" class="group block overflow-hidden rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:shadow-xl mb-3">
+                    <img src="${banner.image}" alt="${banner.name}" class="w-full h-24 object-cover">
+                    <div class="bg-green-800 p-2 text-center">
+                        <p class="text-sm font-semibold text-accent group-hover:text-white">${banner.name}</p>
+                    </div>
+                </a>
+            `).join('');
+        }
+        // =======================================================
+        // ========= AKHIR FUNGSI RENDER =====================
+        // =======================================================
+        
+        function showNews(newsData) {
+            const newsList = document.getElementById('news-list');
+            const newsHtml = newsData.map(n => `
+                <div class="flex-shrink-0 w-64 p-4 bg-green-800 rounded-lg border border-green-700">
+                    <h3 class="font-bold text-sm">${n.title}</h3>
+                    <p class="text-xs text-gray-300">${n.time}</p>
+                </div>
+            `).join('');
+            newsList.innerHTML = newsHtml + newsHtml;
+        }
+        function showAgenda(agendaData) {
+            const agendaList = document.getElementById('agenda-list');
+            const agendaHtml = agendaData.map(a => `
+                <div class="mb-3 p-3 bg-gray-800 rounded border-l-4 border-accent">
+                    <p class="font-bold text-accent text-sm">${a.time} WIB</p>
+                    <h3 class="font-semibold text-white text-sm">${a.title}</h3>
+                    <p class="text-xs text-gray-400 mt-1">${a.location}</p>
+                </div>
+            `).join('');
+            agendaList.innerHTML = agendaHtml + agendaHtml;
+        }
+        function updateRunningText(text) {
+            document.getElementById('running-text-display').textContent = text;
+        }
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').textContent = now.toLocaleString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('date').textContent = now.toLocaleDateString('id-ID', options);
+            document.getElementById('year').textContent = now.getFullYear();
+        }
+        setInterval(updateClock, 1000);
+
+        // JALANKAN SEMUA
+        document.addEventListener('DOMContentLoaded', () => {
+            updateClock();
+            loadSettings();
+            setTimeout(() => location.reload(), 600000);
+        });
+    </script>
+    <script async src="https://www.tiktok.com/embed.js"></script>
+</body>
+</html>
