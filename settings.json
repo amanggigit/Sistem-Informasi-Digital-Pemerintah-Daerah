@@ -59,7 +59,7 @@
       "image": "https://i.ibb.co.com/qXpjqsP/8.jpg"
     },
     {
-      "name": "PENTAS JAPIN ",
+      "name": "PENTAS JAPIN",
       "url": "https://layanan.disdukcapil.go.id",
       "image": "https://i.ibb.co.com/DPWX8ZR4/9.jpg"
     },
@@ -81,56 +81,37 @@
       "image": "https://picsum.photos/seed/lapor-sp4n-tapin/400/150.jpg"
     }
   ],
+  "sliderPhotos": [
+    {
+      "src": "https://i.ibb.co.com/vwRD6tXk/WISUDA-01.jpg",
+      "caption": "Pembangunan Infrastruktur Jalan"
+    },
+    {
+      "src": "https://i.ibb.co.com/g3Kqg2Qm/WISUDA-02.jpg",
+      "caption": "Peresmian Produk UMKM Lokal"
+    },
+    {
+      "src": "https://i.ibb.co.com/8nJ7yF9H/WISUDA-03.jpg",
+      "caption": "Kegiatan Olahraga Masyarakat"
+    },
+    {
+      "src": "https://i.ibb.co.com/h1WqGJdS/WISUDA-04.jpg",
+      "caption": "Kunjungan Kerja ke Desa"
+    }
+  ],
+  "staticContent": {
+    "type": "video",
+    "src": "Download (14).mp4",
+    "qr": "images/qr-bagpem.png"
+  },
   "playlist": [
     {
-      "type": "image",
-      "src": "https://i.ibb.co.com/vvRD6tXk/WISUDA-01.jpg",
-      "duration": 5000
-    },
-        {
-      "type": "image",
-      "src": "https://i.ibb.co.com/p5zvtC5/WISUDA-02.jpg",
-      "duration": 5000
-    },
-        {
-      "type": "image",
-      "src": "https://i.ibb.co.com/13dKJKk/601824004-1514067340720236-6907022515696076246-n.jpg",
-      "duration": 5000
-    },
-        {
-      "type": "image",
-      "src": "https://i.ibb.co.com/KchZcN4M/601820580-1514067690720201-5900928473471870087-n.jpg",
-      "duration": 5000
-    },
-        {
-      "type": "image",
-      "src": "https://i.ibb.co.com/7xZmMctX/605514516-1514283937365243-2824857893818477129-n.jpg",
-      "duration": 5000
-    },
-        {
-      "type": "image",
-      "src": "https://i.ibb.co.com/GfQQdtRZ/604375750-1514284057365231-2491948494129399369-n.jpg",
-      "duration": 5000
+      "type": "slider",
+      "duration": 15000
     },
     {
-      "type": "video",
-      "src": "Download (14).mp4",
-      "duration": 60000
-    },
-        {
-      "type": "video",
-      "src": "Download (15).mp4",
-      "duration": 60000
-    },
-        {
-      "type": "video",
-      "src": "Download (16).mp4",
-      "duration": 60000
-    },
-        {
-      "type": "video",
-      "src": "Download (17).mp4",
-      "duration": 60000
+      "type": "static_content",
+      "duration": 30000
     },
     {
       "type": "tiktok",
@@ -146,11 +127,3 @@
     }
   ]
 }
-
-
-
-
-
-
-
-
