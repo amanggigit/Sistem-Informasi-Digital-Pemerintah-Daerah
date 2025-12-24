@@ -63,7 +63,7 @@
             <!-- ZONA A: Kolom Kiri -->
             <main class="w-3/4 p-4 flex flex-col">
                 <!-- AREA KONTEN DINAMIS -->
-                <div id="dynamic-content" class="flex-1 rounded-lg mb-4 p-4 flex items-center justify-center overflow-hidden" style="background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));">
+                <div id="dynamic-content" class="flex-1 rounded-lg mb-4 p-4 flex items-center justify-center overflow-hidden" style="background: linear-gradient(to right, rgba(0,0,0,0.2), rgba(0,0,0,0));">
                     <div id="content-placeholder" class="max-w-full max-h-full">
                         <p class="text-2xl">Memuat konten...</p>
                     </div>
@@ -84,22 +84,17 @@
                     <p class="text-center text-xs text-gray-300">Kabupaten Tapin</p>
                 </div>
 
-                <!-- ======================================================= -->
-                <!-- ========= TAMBAHAN: BANNER SISI BARU ========= -->
-                <!-- ======================================================= -->
-                <div id="side-banners-wrapper" class="mb-6">
-                    <!-- Banner akan dimuat oleh JavaScript -->
-                </div>
-                <!-- ======================================================= -->
-                <!-- ========= AKHIR TAMBAHAN ====================== -->
-                <!-- ======================================================= -->
-
                 <!-- Berita -->
                 <h2 class="text-xl font-bold mb-4 text-yellow-400">Berita Terkini</h2>
                 <div class="news-scroll-wrapper">
                     <div id="news-list" class="news-scroll-content">
                         <!-- Berita akan dimuat dan diduplikasi oleh JavaScript -->
                     </div>
+                </div>
+                
+                <!-- Banner Sisi -->
+                <div id="side-banners-wrapper" class="mb-6">
+                    <!-- Banner akan dimuat oleh JavaScript -->
                 </div>
                 
                 <!-- Agenda -->
@@ -162,15 +157,9 @@
                 const response = await fetch('settings.json');
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 const settings = await response.json();
-
-                // Terapkan tema terlebih dahulu
-                if (settings.theme) {
-                    applyTheme(settings.theme);
-                }
-
                 playlist = settings.playlist;
                 renderMiniBanners(settings.services);
-                renderSideBanners(settings.sideBanners); // Panggil fungsi baru
+                renderSideBanners(settings.sideBanners);
                 showNews(settings.news);
                 showAgenda(settings.agenda);
                 updateRunningText(settings.runningText);
@@ -196,7 +185,7 @@
                     <div class="text-center p-4">
                         <h2 class="text-4xl font-bold mb-4">${item.bagian}</h2>
                         <p class="text-xl mb-6">Ikuti kami di media sosial</p>
-                        <img src="${item.qr}" alt="QR Code" class="w-64 h-64 mx-auto border-4 border-accent p-2 bg-white">
+                        <img src="${item.qr}" alt="QR Code" class="w-64 h-64 mx-auto border-4 border-yellow-400 p-2 bg-white">
                         <p class="text-lg mt-4">Scan untuk menuju Instagram</p>
                     </div>`;
             } else if (item.type === 'tiktok') {
@@ -225,15 +214,12 @@
                 <a href="${service.url}" target="_blank" class="group block overflow-hidden rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
                     <img src="${service.image}" alt="${service.name}" class="w-full h-24 sm:h-32 object-cover">
                     <div class="bg-green-800 p-2 text-center">
-                        <p class="text-sm font-semibold text-accent group-hover:text-white">${service.name}</p>
+                        <p class="text-sm font-semibold text-yellow-400 group-hover:text-white">${service.name}</p>
                     </div>
                 </a>
             `).join('');
         }
 
-        // =======================================================
-        // ========= TAMBAHAN FUNGSI RENDER BANNER SISI ========
-        // =======================================================
         function renderSideBanners(banners) {
             const bannerContainer = document.getElementById('side-banners-wrapper');
             if (!bannerContainer || !banners || banners.length === 0) {
@@ -244,20 +230,17 @@
                 <a href="${banner.url}" target="_blank" class="group block overflow-hidden rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:shadow-xl mb-3">
                     <img src="${banner.image}" alt="${banner.name}" class="w-full h-24 object-cover">
                     <div class="bg-green-800 p-2 text-center">
-                        <p class="text-sm font-semibold text-accent group-hover:text-white">${banner.name}</p>
+                        <p class="text-sm font-semibold text-yellow-400 group-hover:text-white">${banner.name}</p>
                     </div>
                 </a>
             `).join('');
         }
-        // =======================================================
-        // ========= AKHIR FUNGSI RENDER =====================
-        // =======================================================
         
         function showNews(newsData) {
             const newsList = document.getElementById('news-list');
             const newsHtml = newsData.map(n => `
                 <div class="flex-shrink-0 w-64 p-4 bg-green-800 rounded-lg border border-green-700">
-                    <h3 class="font-bold text-sm">${n.title}</h3>
+                    <h3 class="font-bold text-sm mb-2">${n.title}</h3>
                     <p class="text-xs text-gray-300">${n.time}</p>
                 </div>
             `).join('');
@@ -266,8 +249,8 @@
         function showAgenda(agendaData) {
             const agendaList = document.getElementById('agenda-list');
             const agendaHtml = agendaData.map(a => `
-                <div class="mb-3 p-3 bg-gray-800 rounded border-l-4 border-accent">
-                    <p class="font-bold text-accent text-sm">${a.time} WIB</p>
+                <div class="mb-3 p-3 bg-gray-800 rounded border-l-4 border-yellow-400">
+                    <p class="font-bold text-yellow-300 text-sm">${a.time} WIB</p>
                     <h3 class="font-semibold text-white text-sm">${a.title}</h3>
                     <p class="text-xs text-gray-400 mt-1">${a.location}</p>
                 </div>
